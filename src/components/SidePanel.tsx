@@ -7,6 +7,7 @@ import { ElevationPanel } from './ElevationPanel'
 import { CalculationPanel } from './CalculationPanel'
 import { EcologyPanel } from './EcologyPanel'
 import { DashboardPanel } from './DashboardPanel'
+import { EconomicPanel } from './EconomicPanel'
 import { useElevation } from '../hooks/useElevation'
 import { useRoutingWorker } from '../hooks/useRoutingWorker'
 import { usePersistence } from '../hooks/usePersistence'
@@ -118,7 +119,10 @@ const routingState = useCanalStore((s) => s.routingState)
         {/* Section 8 — Candidats mondiaux pré-calculés (Phase 8) */}
         <CandidatesPanel />
 
-        {/* Section 7 — Effacement données (Phase 7) */}
+        {/* Section 7 — Économie & ROI (accordéon) — Phase 13 */}
+        <EconomicPanel />
+
+        {/* Section 7b — Effacement données (Phase 7) */}
         <div className="px-4 py-4 border-t border-white/[0.08] mt-auto">
           <ClearDataButton />
         </div>
