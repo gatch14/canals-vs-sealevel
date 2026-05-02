@@ -210,7 +210,12 @@ Plans:
 4. Le moteur retourne la surface agricole potentielle (km² cultivables) créée par la combinaison eau douce dessalée + engrais locaux disponibles
 5. Le moteur retourne la durée de vie estimée du canal (années avant entretien majeur) selon le type de terrain et la concentration minérale de l'eau
 6. Le moteur retourne la timeline habitabilité (années avant que la zone devienne habitable et exploitable agricolement) en intervalle [min, max]
-**Plans**: TBD
+**Plans**: 3 plans (T01, T02, T03)
+
+Plans:
+- [ ] 11-T01-PLAN.md — Types CircularParams/CircularResult + stubs circularEngine.ts + tests RED (Wave 0)
+- [ ] 11-T02-PLAN.md — Implémentation complète circularEngine.ts (CIRC-01 à CIRC-04, VIE-01, VIE-02) — tests GREEN (Wave 1)
+- [ ] 11-T03-PLAN.md — useCircular.ts hook — connexion store Zustand (Wave 2)
 
 ### Phase 12: ROI & Break-even
 **Goal**: Le moteur peut calculer la rentabilité complète d'un canal — valeur économique totale annuelle, ROI projeté sur plusieurs décennies, seuil de rentabilité et comparaison multi-canaux
@@ -251,7 +256,7 @@ Plans:
 | 8. Candidats IA | 3/3 | Complete | 2026-05-02 |
 | 9. Eau Salée & Dessalement | 3/3 | Complete | 2026-05-02 |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
-| 11. Moteur Économique Circulaire | 0/TBD | Not started | - |
+| 11. Moteur Économique Circulaire | 0/3 | In progress | - |
 | 12. ROI & Break-even | 0/TBD | Not started | - |
 | 13. Dashboard ROI | 0/TBD | Not started | - |
 
