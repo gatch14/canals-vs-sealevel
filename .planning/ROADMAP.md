@@ -19,7 +19,7 @@
 
 ### Milestone v2.0 — Persistence, IA & Écologie Avancée
 
-- [ ] **Phase 7: Persistance Locale** — Canaux et paramètres survivent au refresh via IndexedDB Dexie.js
+- [x] **Phase 7: Persistance Locale** — Canaux et paramètres survivent au refresh via IndexedDB Dexie.js
 - [ ] **Phase 8: Candidats IA** — Bibliothèque de canaux mondiaux pré-calculés chargeables en un clic
 - [ ] **Phase 9: Eau Salée & Dessalement** — Impact contextuel eau salée + nœuds dessalement solaire
 - [ ] **Phase 10: Impact Météorologique** — Évaporation, précipitations, refroidissement et indice de risque climatique
@@ -140,7 +140,7 @@ Plans:
 Plans:
 - [x] 07-T01-PLAN.md — Install dexie + fake-indexeddb, StoredCanal type, stubs tests RED
 - [x] 07-T02-PLAN.md — db.ts singleton Dexie + actions store (clearAll, hydrateCanals) + usePersistence.ts → 101/101 tests GREEN
-- [ ] 07-T03-PLAN.md — ClearDataButton.tsx + SidePanel intégration (usePersistence + bouton effacement)
+- [x] 07-T03-PLAN.md — ClearDataButton.tsx + SidePanel intégration (usePersistence + bouton effacement)
 **UI hint**: yes
 
 ### Phase 8: Candidats IA

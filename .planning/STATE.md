@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: — Persistence, IA & Écologie Avancée
 status: in_progress
-last_updated: "2026-05-02T07:32:00Z"
+last_updated: "2026-05-02T09:35:00Z"
 progress:
   total_phases: 10
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 21
-  completed_plans: 19
-  percent: 90
+  completed_plans: 20
+  percent: 95
 ---
 
 # STATE — Canal
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 
 ## Current Status
 
-**Active phase**: Phase 7 — Persistance Locale
-**Status**: MILESTONE v2.0 IN PROGRESS — v1.0 complete (6/6 phases), v2.0 starting (0/4 phases)
+**Active phase**: Phase 8 — Candidats IA (next)
+**Status**: MILESTONE v2.0 IN PROGRESS — Phase 7 complete (3/3 plans), Phase 8 next
 
 ---
 
@@ -40,7 +40,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | 4 | Moteur de Calcul | Complete (3/3 plans) |
 | 5 | Analyse Écologique | Complete (3/3 plans) |
 | 6 | Dashboard Global | Complete (3/3 plans) |
-| 7 | Persistance Locale | In progress (2/3 plans complete) |
+| 7 | Persistance Locale | Complete (3/3 plans) |
 | 8 | Candidats IA | Not started |
 | 9 | Eau Salée & Dessalement | Not started |
 | 10 | Impact Météorologique | Not started |
@@ -55,7 +55,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | Requirements mapped (v1) | 18/18 |
 | Requirements mapped (v2) | 0/13 |
 | Plans completed (v1) | 18/18 |
-| Plans completed (v2) | 2/TBD |
+| Plans completed (v2) | 3/TBD |
 | Tests GREEN (v1+v2) | 101/101 |
 
 ---
@@ -80,6 +80,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 - db.ts singleton Dexie (CanalDatabase) : tables canals (StoredCanal, PK=id UUID) + settings (SettingsRecord, PK=key)
 - Subscribe basique Zustand sans subscribeWithSelector : comparaison de références prévCanals !== state.canals pour détecter mutations
 - usePersistence : hydration Promise.all au montage + bulkPut+bulkDelete orphelins à chaque mutation + cancelled+unsub() cleanup
+- ClearDataButton pattern : dialog de confirmation (overlay fixed inset-0 + stopPropagation), db.transaction('rw') atomique, puis clearAll() store
+- usePersistence monté dans SidePanel.tsx (pas App.tsx) : cohérence avec useElevation + useRoutingWorker, zéro double montage
 
 ### Blockers
 
@@ -90,5 +92,5 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Phase 7 T02 exécuté — db.ts singleton Dexie + clearAll/hydrateCanals store + usePersistence.ts hook — 101/101 tests GREEN
-**Next action**: /gsd-execute-phase 7 — T03 (Wave 2 — ClearDataButton + SidePanel + branchement usePersistence)
+**Last action**: Phase 7 T03 exécuté — ClearDataButton.tsx + SidePanel intégration usePersistence — Phase 7 complete (PERS-01 + PERS-02 + PERS-03) — 101/101 tests GREEN
+**Next action**: /gsd-plan-phase 8 — Candidats IA
