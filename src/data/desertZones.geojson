@@ -1,0 +1,125 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Sahara", "aridity": "hyperarid", "koppen": "BWh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-17.0, 15.0], [40.0, 15.0], [40.0, 32.0], [-17.0, 32.0], [-17.0, 15.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Arabian Desert", "aridity": "hyperarid", "koppen": "BWh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [35.0, 15.0], [60.0, 15.0], [60.0, 33.0], [35.0, 33.0], [35.0, 15.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Gobi", "aridity": "hyperarid", "koppen": "BWk" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [80.0, 38.0], [125.0, 38.0], [125.0, 50.0], [80.0, 50.0], [80.0, 38.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Atacama", "aridity": "hyperarid", "koppen": "BWh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-75.0, -30.0], [-66.0, -30.0], [-66.0, -18.0], [-75.0, -18.0], [-75.0, -30.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Australian Outback", "aridity": "hyperarid", "koppen": "BWh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [120.0, -35.0], [140.0, -35.0], [140.0, -20.0], [120.0, -20.0], [120.0, -35.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Namib", "aridity": "hyperarid", "koppen": "BWh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [11.0, -30.0], [18.0, -30.0], [18.0, -17.0], [11.0, -17.0], [11.0, -30.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Kalahari", "aridity": "arid", "koppen": "BSh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [19.0, -29.0], [27.0, -29.0], [27.0, -20.0], [19.0, -20.0], [19.0, -29.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Sahel", "aridity": "arid", "koppen": "BSh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-17.0, 12.0], [35.0, 12.0], [35.0, 17.0], [-17.0, 17.0], [-17.0, 12.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Great Basin", "aridity": "arid", "koppen": "BSk" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-120.0, 36.0], [-114.0, 36.0], [-114.0, 42.0], [-120.0, 42.0], [-120.0, 36.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Central Asian Steppe", "aridity": "arid", "koppen": "BSk" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [55.0, 40.0], [80.0, 40.0], [80.0, 50.0], [55.0, 50.0], [55.0, 40.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Negev-Sinai", "aridity": "semiarid", "koppen": "BSh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [33.0, 29.0], [36.0, 29.0], [36.0, 31.0], [33.0, 31.0], [33.0, 29.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Thar Desert", "aridity": "semiarid", "koppen": "BSh" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [68.0, 24.0], [74.0, 24.0], [74.0, 30.0], [68.0, 30.0], [68.0, 24.0]
+        ]]
+      }
+    }
+  ]
+}

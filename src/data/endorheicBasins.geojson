@@ -1,0 +1,161 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mer Caspienne",
+        "examples": "Niveau en baisse de 1.5m depuis 2000"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [49.0, 36.0], [54.0, 36.0], [54.0, 47.0], [49.0, 47.0], [49.0, 36.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mer d'Aral",
+        "examples": "Catastrophe écologique — 90% du volume perdu depuis 1960"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [59.0, 43.0], [62.0, 43.0], [62.0, 46.5], [59.0, 46.5], [59.0, 43.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Dépression de Qattara",
+        "examples": "Meilleur candidat mondial pour canal, jamais construit"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [26.5, 29.0], [29.5, 29.0], [29.5, 30.5], [26.5, 30.5], [26.5, 29.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Mer Morte",
+        "examples": "Niveau en baisse de 1m/an depuis 1980"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [35.3, 31.0], [35.6, 31.0], [35.6, 31.8], [35.3, 31.8], [35.3, 31.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Grand Lac Salé",
+        "examples": "Niveau critique, salinité extrême, écosystème effondré"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-113.0, 40.5], [-112.0, 40.5], [-112.0, 41.5], [-113.0, 41.5], [-113.0, 40.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Salton Sea",
+        "examples": "Créée par accident en 1905, hypersaline"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-116.1, 33.1], [-115.6, 33.1], [-115.6, 33.5], [-116.1, 33.5], [-116.1, 33.1]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lac Balkhash",
+        "examples": "Déclin lié aux détournements d'eau de l'Ili"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [72.0, 44.5], [79.0, 44.5], [79.0, 47.0], [72.0, 47.0], [72.0, 44.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lac Eyre / Kati Thanda",
+        "examples": "Ephémère — se remplit rarement"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [136.0, -29.5], [138.5, -29.5], [138.5, -27.5], [136.0, -27.5], [136.0, -29.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bassin du Tarim",
+        "examples": "Désertification active, Taklamakan au centre"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [76.0, 36.0], [91.0, 36.0], [91.0, 42.0], [76.0, 42.0], [76.0, 36.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Lac Turkana",
+        "examples": "Bassin partiellement fermé, niveau en baisse"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [35.8, 2.5], [36.5, 2.5], [36.5, 5.0], [35.8, 5.0], [35.8, 2.5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bassin du Tadjikistan",
+        "examples": "Glacier retreat, bassin fermé en altitude"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [67.0, 37.0], [75.0, 37.0], [75.0, 40.0], [67.0, 40.0], [67.0, 37.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bassin du Botswana (Okavango)",
+        "examples": "Delta intérieur, eau qui ne rejoint jamais l'océan"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [22.0, -22.0], [25.0, -22.0], [25.0, -18.5], [22.0, -18.5], [22.0, -22.0]
+        ]]
+      }
+    }
+  ]
+}

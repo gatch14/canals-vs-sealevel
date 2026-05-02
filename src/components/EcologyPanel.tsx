@@ -1,0 +1,180 @@
+// src/components/EcologyPanel.tsx
+// Accordéon Phase 5 — analyse écologique ECO-01 à ECO-04 (6 états)
+// Pattern dupliqué de CalculationPanel.tsx — même structure, mêmes classes Tailwind.
+import { useState, useEffect } from 'react'
+import { ChevronDown, AlertCircle } from 'lucide-react'
+import { useCanalStore } from '../store/canalStore'
+import { useEcology } from '../hooks/useEcology'
+import type { Interval } from '../types/calculation'
+
+// ─── Helpers de formatage UX-01 ──────────────────────────────────────────────
+
+/** Format scientifique pour valeurs très petites (< 0.001) */
+function formatNumber(n: number, decimals: number = 3): string {
+  if (n === 0) return '0'
+  if (Math.abs(n) < 0.001) return n.toExponential(2)
+  return n.toFixed(decimals)
+}
+
+/** [X – Y] unité — em dash U+2013 obligatoire (UI-SPEC §Number Formatting) */
+function formatInterval(iv: Interval, unit: string, decimals: number = 3): string {
+  return `[${formatNumber(iv[0], decimals)} – ${formatNumber(iv[1], decimals)}] ${unit}`
+}
+
+// ─── Labels d'aridité ────────────────────────────────────────────────────────
+
+const ARIDITY_LABELS: Record<string, string> = {
+  hyperarid: "Hyperaride (Sahara, Atacama, Namib)",
+  arid: "Aride (Sahel, steppes d’Asie centrale)",
+  semiarid: "Semi-aride",
+}
+
+// ─── Composant ───────────────────────────────────────────────────────────────
+
+export function EcologyPanel() {
+  const selectedCanalId = useCanalStore((s) => s.selectedCanalId)
+  const canals = useCanalStore((s) => s.canals)
+  const ecologyResult = useEcology()
+
+  const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
+
+  // Accordéon ouvert auto à la sélection
+  const [isOpen, setIsOpen] = useState(true)
+  useEffect(() => {
+    if (selectedCanalId) setIsOpen(true)
+  }, [selectedCanalId])
+
+  // ── États dérivés ──
+  const noCanal = !selectedCanalId
+  const noProfile = selectedCanal !== null && !selectedCanal.elevation
+  const noImpact =
+    ecologyResult !== null &&
+    ecologyResult.desertIntersection === null &&
+    !ecologyResult.endorheicAlert.detected &&
+    !ecologyResult.climateRiskFlag
+
+  return (
+    <div className="border-t border-white/[0.08]">
+      {/* Header accordéon */}
+      <button
+        onClick={() => setIsOpen((o) => !o)}
+        className="w-full h-8 px-4 flex items-center gap-2 text-left
+                   hover:bg-white/[0.04] transition-colors
+                   focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900
+                   outline-none"
+        aria-expanded={isOpen}
+      >
+        <ChevronDown
+          size={14}
+          className={`text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+        />
+        <span className="text-[12px] font-normal text-gray-400 uppercase tracking-wider">
+          Analyse &eacute;cologique
+        </span>
+      </button>
+
+      {isOpen && (
+        <div>
+          {/* État 1 — aucun canal sélectionné */}
+          {noCanal && (
+            <div className="h-10 px-4 flex items-center">
+              <p className="text-xs text-gray-500 italic text-center leading-relaxed w-full">
+                S&eacute;lectionnez un canal pour analyser son impact &eacute;cologique
+              </p>
+            </div>
+          )}
+
+          {/* État 2 — canal sélectionné mais pas de profil chargé */}
+          {!noCanal && noProfile && (
+            <div className="h-10 px-4 flex items-center gap-1">
+              <AlertCircle size={12} className="text-amber-400 shrink-0" />
+              <p className="text-xs text-amber-400">
+                Chargez le profil altim&eacute;trique pour l&apos;analyse &eacute;cologique
+              </p>
+            </div>
+          )}
+
+          {/* État 3 — canal + élévation mais aucune zone écologique */}
+          {!noCanal && !noProfile && noImpact && (
+            <div className="px-4 py-3">
+              <p className="text-xs text-gray-500 italic leading-relaxed">
+                Aucune zone &eacute;cologique significative sur ce trac&eacute;
+              </p>
+            </div>
+          )}
+
+          {/* États 4+5+6 — additifs, s'affichent simultanément */}
+          {!noCanal && !noProfile && ecologyResult !== null && !noImpact && (
+            <>
+              {/* État 4 — zone désertique traversée (ECO-01 + ECO-02) */}
+              {ecologyResult.desertIntersection !== null && (
+                <dl className="flex flex-col">
+                  <div className="px-4 py-1 flex flex-col gap-[2px]">
+                    <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Zone aride travers&eacute;e</dt>
+                    <dd className="text-[13px] font-semibold text-white">
+                      {formatInterval(ecologyResult.desertIntersection.areaKm2, 'km²', 0)}
+                    </dd>
+                  </div>
+
+                  <div className="px-4 py-1 flex flex-col gap-[2px]">
+                    <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Verdissement estim&eacute;</dt>
+                    <dd className="text-[13px] font-semibold text-white">
+                      {ecologyResult.greeningTimeline
+                        ? formatInterval(ecologyResult.greeningTimeline, 'ans', 0)
+                        : '—'}
+                    </dd>
+                    <p className="text-[11px] text-gray-500 mt-1">
+                      {ARIDITY_LABELS[ecologyResult.desertIntersection.aridityClass] ?? ecologyResult.desertIntersection.aridityClass}
+                    </p>
+                  </div>
+                </dl>
+              )}
+
+              {/* État 5 — alerte bassin endorheïque (ECO-03) */}
+              {ecologyResult.endorheicAlert.detected && (
+                <div
+                  role="alert"
+                  className="border-t border-white/[0.06] mt-2 pt-2 px-4 pb-3 flex flex-col gap-1"
+                >
+                  <p className="text-[11px] text-red-400 font-semibold uppercase tracking-wider flex items-center gap-1">
+                    <AlertCircle size={12} className="shrink-0" />
+                    Alerte &mdash; Bassin endorhe&iuml;que
+                  </p>
+                  <p className="text-[12px] text-red-300 leading-relaxed">
+                    Le canal aboutit dans{' '}
+                    {ecologyResult.endorheicAlert.basinName ?? 'un bassin endorheïque fermé'}{' '}
+                    &mdash; risque de salinisation irr&eacute;versible
+                  </p>
+                  {ecologyResult.endorheicAlert.examples && (
+                    <p className="text-[11px] text-gray-500 leading-relaxed mt-1">
+                      Exemples historiques : {ecologyResult.endorheicAlert.examples}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* État 6 — risque climatique (ECO-04) */}
+              {ecologyResult.climateRiskFlag && (
+                <div
+                  role="alert"
+                  className="border-t border-white/[0.06] mt-2 pt-2 px-4 pb-3 flex flex-col gap-1"
+                >
+                  <p className="text-[11px] text-amber-400 font-semibold uppercase tracking-wider flex items-center gap-1">
+                    <AlertCircle size={12} className="shrink-0" />
+                    Risque climatique
+                  </p>
+                  <p className="text-[12px] text-amber-300 leading-relaxed">
+                    Introduction d&apos;eau dans une zone aride et chaude
+                  </p>
+                  <p className="text-[11px] text-gray-500 leading-relaxed mt-1">
+                    Risque de gradients de pression et de ph&eacute;nom&egrave;nes m&eacute;t&eacute;orologiques locaux
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
