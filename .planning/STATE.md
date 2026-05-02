@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: — Persistence, IA & Écologie Avancée
 status: in_progress
-last_updated: "2026-05-02T07:12:05.907Z"
+last_updated: "2026-05-02T07:32:00Z"
 progress:
   total_phases: 10
   completed_phases: 6
   total_plans: 21
-  completed_plans: 18
-  percent: 86
+  completed_plans: 19
+  percent: 90
 ---
 
 # STATE — Canal
@@ -40,7 +40,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | 4 | Moteur de Calcul | Complete (3/3 plans) |
 | 5 | Analyse Écologique | Complete (3/3 plans) |
 | 6 | Dashboard Global | Complete (3/3 plans) |
-| 7 | Persistance Locale | In progress (1/3 plans complete) |
+| 7 | Persistance Locale | In progress (2/3 plans complete) |
 | 8 | Candidats IA | Not started |
 | 9 | Eau Salée & Dessalement | Not started |
 | 10 | Impact Météorologique | Not started |
@@ -55,8 +55,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | Requirements mapped (v1) | 18/18 |
 | Requirements mapped (v2) | 0/13 |
 | Plans completed (v1) | 18/18 |
-| Plans completed (v2) | 1/TBD |
-| Tests GREEN (v1) | 89/89 |
+| Plans completed (v2) | 2/TBD |
+| Tests GREEN (v1+v2) | 101/101 |
 
 ---
 
@@ -77,6 +77,9 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 - Tous les modules de calcul purs (calculationEngine, ecologyEngine, dashboardEngine) — testables sans DOM
 - Candidats IA : données pre-computed bundlées en JSON statique — zéro appel réseau au chargement
 - StoredCanal = Omit<Canal, elevation|elevationLoading|elevationError> : champs éphémères exclus de l'IndexedDB, re-fetchés par useElevation
+- db.ts singleton Dexie (CanalDatabase) : tables canals (StoredCanal, PK=id UUID) + settings (SettingsRecord, PK=key)
+- Subscribe basique Zustand sans subscribeWithSelector : comparaison de références prévCanals !== state.canals pour détecter mutations
+- usePersistence : hydration Promise.all au montage + bulkPut+bulkDelete orphelins à chaque mutation + cancelled+unsub() cleanup
 
 ### Blockers
 
@@ -87,5 +90,5 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Phase 7 T01 exécuté — StoredCanal + stubs RED persistence.test.ts + stubs RED canalStore.test.ts (clearAll/hydrateCanals)
-**Next action**: /gsd-execute-phase 7 — T02 (Wave 1 — db.ts + store actions + tests GREEN)
+**Last action**: Phase 7 T02 exécuté — db.ts singleton Dexie + clearAll/hydrateCanals store + usePersistence.ts hook — 101/101 tests GREEN
+**Next action**: /gsd-execute-phase 7 — T03 (Wave 2 — ClearDataButton + SidePanel + branchement usePersistence)

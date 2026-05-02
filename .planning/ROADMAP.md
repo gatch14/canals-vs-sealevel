@@ -139,7 +139,7 @@ Plans:
 
 Plans:
 - [x] 07-T01-PLAN.md — Install dexie + fake-indexeddb, StoredCanal type, stubs tests RED
-- [ ] 07-T02-PLAN.md — db.ts singleton Dexie + actions store (clearAll, hydrateCanals) + usePersistence.ts → tests GREEN
+- [x] 07-T02-PLAN.md — db.ts singleton Dexie + actions store (clearAll, hydrateCanals) + usePersistence.ts → 101/101 tests GREEN
 - [ ] 07-T03-PLAN.md — ClearDataButton.tsx + SidePanel intégration (usePersistence + bouton effacement)
 **UI hint**: yes
 
