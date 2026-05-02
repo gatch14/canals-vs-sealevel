@@ -237,8 +237,12 @@ Plans:
 2. L'utilisateur voit la surface agricole créée (km²), la durée de vie du canal et la timeline habitabilité sur le même panneau
 3. L'utilisateur voit la valeur économique totale annuelle et le break-even (années) mis en évidence comme indicateurs clés
 4. L'utilisateur peut accéder à un tableau comparatif ROI affichant tous ses canaux triés par break-even
-**Plans**: TBD
+**Plans**: 2 plans
 **UI hint**: yes
+
+Plans:
+- [ ] 13-01-PLAN.md — EconomicPanel.tsx — accordéon Économie & ROI (4 états, co-produits, ROI, tableau comparatif)
+- [ ] 13-02-PLAN.md — SidePanel.tsx — intégration EconomicPanel en position finale
 
 ---
 
