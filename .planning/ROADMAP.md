@@ -185,7 +185,12 @@ Plans:
 2. L'utilisateur voit le rayon d'influence climatique estimé autour du canal (km) et les précipitations supplémentaires attendues dans cette zone (mm/an)
 3. L'utilisateur voit le refroidissement local estimé par évapotranspiration (°C) pour les zones traversées
 4. L'utilisateur voit un indice de risque météorologique (faible / modéré / élevé) indiquant le danger de créer des gradients de pression atmosphérique en introduisant de l'humidité en zone aride
-**Plans**: TBD
+**Plans**: 3 plans (T01, T02, T03)
+
+Plans:
+- [ ] 10-T01-PLAN.md — Types meteorology.ts + stubs meteorologyEngine.ts + tests RED (Wave 1)
+- [ ] 10-T02-PLAN.md — Implémentation complète meteorologyEngine.ts — tests GREEN (Wave 1)
+- [ ] 10-T03-PLAN.md — useMeteorology hook + MeteorologySection dans EcologyPanel.tsx (Wave 2)
 **UI hint**: yes
 
 ---
