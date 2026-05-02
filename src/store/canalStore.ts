@@ -42,6 +42,10 @@ interface CanalStore {
   // Calcul d'impact — Phase 4
   calcParams: CalcParams
   setCalcParams: (params: Partial<CalcParams>) => void
+
+  // Persistance — Phase 7
+  clearAll: () => void
+  hydrateCanals: (canals: Canal[]) => void
 }
 
 export const useCanalStore = create<CanalStore>()((set, get) => ({
@@ -141,4 +145,18 @@ export const useCanalStore = create<CanalStore>()((set, get) => ({
   setCalcParams: (params) => set((state) => ({
     calcParams: { ...state.calcParams, ...params }
   })),
+
+  clearAll: () => set({
+    canals: [],
+    selectedCanalId: null,
+    draftPoints: [],
+    previewCoord: null,
+    mode: 'selection' as UIMode,
+    routingState: 'idle' as RoutingState,
+    routingStart: null,
+    routingEnd: null,
+    calcParams: DEFAULT_CALC_PARAMS,
+  }),
+
+  hydrateCanals: (canals) => set({ canals }),
 }))
