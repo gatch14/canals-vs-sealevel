@@ -15,9 +15,8 @@ export function useDesalination(): DesalinationResult | null {
   const selectedCanalId = useCanalStore((s) => s.selectedCanalId)
   const canals = useCanalStore((s) => s.canals)
 
-  const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
-
   return useMemo<DesalinationResult | null>(() => {
+    const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
     if (!selectedCanal || selectedCanal.points.length < 2) return null
 
     const line = lineString(selectedCanal.points)
@@ -28,5 +27,5 @@ export function useDesalination(): DesalinationResult | null {
       { lengthKm, points: selectedCanal.points, solarFactor },
       DESERT_FEATURES,
     )
-  }, [selectedCanal])
+  }, [selectedCanalId, canals])
 }
