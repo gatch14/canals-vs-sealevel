@@ -9,13 +9,17 @@ import { EcologyPanel } from './EcologyPanel'
 import { DashboardPanel } from './DashboardPanel'
 import { useElevation } from '../hooks/useElevation'
 import { useRoutingWorker } from '../hooks/useRoutingWorker'
+import { usePersistence } from '../hooks/usePersistence'
 import { useCanalStore } from '../store/canalStore'
+import { ClearDataButton } from './ClearDataButton'
 
 export function SidePanel() {
   // Déclenche automatiquement le fetch d'élévation quand un canal est sélectionné
   useElevation()
   // Orchestre le Web Worker routing (actif quand routingState === 'computing')
   useRoutingWorker()
+  // Hydrate le store depuis IndexedDB au montage + sync Zustand→Dexie — Phase 7
+  usePersistence()
   const routingState = useCanalStore((s) => s.routingState)
   const cancelRouting = useCanalStore((s) => s.cancelRouting)
 
@@ -109,6 +113,11 @@ export function SidePanel() {
 
         {/* Section 6 — Dashboard Global (accordéon) — Phase 6 */}
         <DashboardPanel />
+
+        {/* Section 7 — Effacement données (Phase 7) */}
+        <div className="px-4 py-4 border-t border-white/[0.08] mt-auto">
+          <ClearDataButton />
+        </div>
       </div>
     </aside>
   )
