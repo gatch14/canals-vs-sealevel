@@ -168,7 +168,12 @@ Plans:
 2. L'utilisateur peut activer des nœuds de dessalement solaire sur un canal et voir le volume d'eau douce produit (m³/jour) calculé selon la longueur et l'ensoleillement de la zone
 3. L'utilisateur voit la valeur économique estimée des sels et minéraux récupérés (€/an) et la superficie de zones habitables potentiellement créées autour des nœuds (km²)
 4. L'utilisateur voit le coût d'infrastructure de dessalement intégré à la fourchette de coût total du canal
-**Plans**: TBD
+**Plans**: 3 plans (T01, T02, T03)
+
+Plans:
+- [ ] 09-T01-PLAN.md — Types desalination.ts + stubs desalinationEngine.ts + tests RED (Wave 1)
+- [ ] 09-T02-PLAN.md — Implémentation complète desalinationEngine.ts (ECO-05, DESAL-01 à DESAL-05) — tests GREEN (Wave 2)
+- [ ] 09-T03-PLAN.md — desalinationEnabled store + useDesalination hook + EcologyPanel étendu + SidePanel (Wave 3)
 **UI hint**: yes
 
 ### Phase 10: Impact Météorologique
@@ -197,7 +202,7 @@ Plans:
 | 6. Dashboard Global | 3/3 | Complete | 2026-05-02 |
 | 7. Persistance Locale | 3/3 | Complete | 2026-05-02 |
 | 8. Candidats IA | 3/3 | Complete | 2026-05-02 |
-| 9. Eau Salée & Dessalement | 0/TBD | Not started | - |
+| 9. Eau Salée & Dessalement | 0/3 | Not started | - |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
 
 ---
