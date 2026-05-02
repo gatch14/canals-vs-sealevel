@@ -1,15 +1,15 @@
 ---
 gsd_state_version: 1.0
 milestone: v2.0
-milestone_name: Persistence, IA & Écologie Avancée
+milestone_name: — Persistence, IA & Écologie Avancée
 status: in_progress
-last_updated: "2026-05-02T00:00:00Z"
+last_updated: "2026-05-02T07:12:05.907Z"
 progress:
   total_phases: 10
   completed_phases: 6
-  total_plans: 18
+  total_plans: 21
   completed_plans: 18
-  percent: 0
+  percent: 86
 ---
 
 # STATE — Canal
@@ -40,7 +40,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | 4 | Moteur de Calcul | Complete (3/3 plans) |
 | 5 | Analyse Écologique | Complete (3/3 plans) |
 | 6 | Dashboard Global | Complete (3/3 plans) |
-| 7 | Persistance Locale | Ready to execute (3/3 plans) |
+| 7 | Persistance Locale | In progress (1/3 plans complete) |
 | 8 | Candidats IA | Not started |
 | 9 | Eau Salée & Dessalement | Not started |
 | 10 | Impact Météorologique | Not started |
@@ -55,7 +55,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | Requirements mapped (v1) | 18/18 |
 | Requirements mapped (v2) | 0/13 |
 | Plans completed (v1) | 18/18 |
-| Plans completed (v2) | 0/TBD |
+| Plans completed (v2) | 1/TBD |
 | Tests GREEN (v1) | 89/89 |
 
 ---
@@ -76,6 +76,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 - 3 scénarios dashboard : optimiste 1.0, réaliste 0.6, pessimiste 0.3
 - Tous les modules de calcul purs (calculationEngine, ecologyEngine, dashboardEngine) — testables sans DOM
 - Candidats IA : données pre-computed bundlées en JSON statique — zéro appel réseau au chargement
+- StoredCanal = Omit<Canal, elevation|elevationLoading|elevationError> : champs éphémères exclus de l'IndexedDB, re-fetchés par useElevation
 
 ### Blockers
 
@@ -86,5 +87,5 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Phase 7 planifiée — 3 plans (T01 Wave 0, T02 Wave 1, T03 Wave 2), vérification passée
-**Next action**: /gsd-execute-phase 7 — Persistance Locale
+**Last action**: Phase 7 T01 exécuté — StoredCanal + stubs RED persistence.test.ts + stubs RED canalStore.test.ts (clearAll/hydrateCanals)
+**Next action**: /gsd-execute-phase 7 — T02 (Wave 1 — db.ts + store actions + tests GREEN)

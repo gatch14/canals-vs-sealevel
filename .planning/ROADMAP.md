@@ -138,7 +138,7 @@ Plans:
 **Plans**: 3 plans (T01, T02, T03)
 
 Plans:
-- [ ] 07-T01-PLAN.md — Install dexie + fake-indexeddb, StoredCanal type, stubs tests RED
+- [x] 07-T01-PLAN.md — Install dexie + fake-indexeddb, StoredCanal type, stubs tests RED
 - [ ] 07-T02-PLAN.md — db.ts singleton Dexie + actions store (clearAll, hydrateCanals) + usePersistence.ts → tests GREEN
 - [ ] 07-T03-PLAN.md — ClearDataButton.tsx + SidePanel intégration (usePersistence + bouton effacement)
 **UI hint**: yes
@@ -190,7 +190,7 @@ Plans:
 | 4. Moteur de Calcul | 3/3 | Complete | 2026-05-01 |
 | 5. Analyse Écologique | 3/3 | Complete | 2026-05-01 |
 | 6. Dashboard Global | 3/3 | Complete | 2026-05-02 |
-| 7. Persistance Locale | 0/3 | Planned | - |
+| 7. Persistance Locale | 1/3 | In progress | - |
 | 8. Candidats IA | 0/TBD | Not started | - |
 | 9. Eau Salée & Dessalement | 0/TBD | Not started | - |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
