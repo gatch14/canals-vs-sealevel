@@ -72,7 +72,7 @@ describe("calcInfluenceRadius — rayon d'influence km (METEO-02)", () => {
 
 describe('calcInducedPrecipitation — précipitations induites mm/an (METEO-03)', () => {
   it('retourne [0, 0] pour évaporation nulle', () => {
-    const result = calcInducedPrecipitation([0, 0], 1.0)
+    const result = calcInducedPrecipitation([0, 0], 1.0, 10000)
     expect(result[0]).toBe(0)
     expect(result[1]).toBe(0)
   })
