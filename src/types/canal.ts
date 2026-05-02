@@ -16,3 +16,10 @@ export interface Canal {
   elevationError?: string       // Phase 2 — message d'erreur si fetch échoué
   isRouted?: boolean            // Phase 3 — canal généré par routing automatique
 }
+
+/**
+ * Canal tel que stocké dans IndexedDB (Phase 7).
+ * elevation* exclus : champs éphémères re-fetchés par useElevation au besoin.
+ * Voir RESEARCH.md Pitfall 2 et 5 — évite quota et stale data.
+ */
+export type StoredCanal = Omit<Canal, 'elevation' | 'elevationLoading' | 'elevationError'>
