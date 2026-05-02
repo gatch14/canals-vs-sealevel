@@ -123,3 +123,62 @@ describe('useCanalStore — Phase 4 calcParams', () => {
     expect(useCanalStore.getState().calcParams).toEqual({ width: 50, depth: 10 })
   })
 })
+
+// ─── Phase 7 — Persistance : nouveaux tests RED (T01 Wave 0) ─────────────────
+// clearAll et hydrateCanals n'existent pas dans le store — ces tests sont RED.
+// T02 ajoute les actions et les fait passer en GREEN.
+
+describe('clearAll (PERS-03)', () => {
+  it('clearAll est une action du store', () => {
+    const store = useCanalStore.getState()
+    expect(typeof store.clearAll).toBe('function')
+  })
+
+  it('clearAll remet canals à []', () => {
+    // Préparation : ajouter un canal via finalizeCanal
+    useCanalStore.setState({
+      canals: [{ id: 'c1', points: [[0,0],[1,1]], name: 'C1', createdAt: 1 }],
+      selectedCanalId: 'c1',
+      mode: 'drawing',
+    })
+    useCanalStore.getState().clearAll()
+    const state = useCanalStore.getState()
+    expect(state.canals).toEqual([])
+    expect(state.selectedCanalId).toBeNull()
+    expect(state.mode).toBe('selection')
+  })
+
+  it('clearAll remet calcParams à DEFAULT_CALC_PARAMS', () => {
+    useCanalStore.setState({ calcParams: { width: 999, depth: 999 } })
+    useCanalStore.getState().clearAll()
+    const { calcParams } = useCanalStore.getState()
+    expect(calcParams.width).toBe(50)
+    expect(calcParams.depth).toBe(5)
+  })
+})
+
+describe('hydrateCanals (PERS-01)', () => {
+  it('hydrateCanals est une action du store', () => {
+    const store = useCanalStore.getState()
+    expect(typeof store.hydrateCanals).toBe('function')
+  })
+
+  it('hydrateCanals remplace canals par le tableau fourni', () => {
+    const toLoad = [
+      { id: 'hydrated-1', points: [[2.35, 48.85], [5.0, 46.0]] as import('../types/canal').Coord[], name: 'Hydraté', createdAt: 2000 },
+    ]
+    useCanalStore.getState().hydrateCanals(toLoad)
+    const { canals } = useCanalStore.getState()
+    expect(canals).toHaveLength(1)
+    expect(canals[0].id).toBe('hydrated-1')
+  })
+
+  it('hydrateCanals avec tableau vide ne change pas les canaux existants si pas appelé', () => {
+    // Vérification que hydrateCanals([]) remet bien canals à [] si appelé
+    useCanalStore.setState({
+      canals: [{ id: 'pre', points: [[0,0],[1,1]], name: 'Pre', createdAt: 1 }],
+    })
+    useCanalStore.getState().hydrateCanals([])
+    expect(useCanalStore.getState().canals).toEqual([])
+  })
+})
