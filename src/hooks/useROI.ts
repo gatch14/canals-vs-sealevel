@@ -47,21 +47,19 @@ export function useROI(): RoiResult | null {
       DESERT_FEATURES,
     )
 
-    const desal = desalinationEnabled && desalResult
-      ? desalResult
-      : {
-          nodes: 0,
-          desalinationCost: [0, 0] as Interval,
-          waterProduction: [0, 0] as Interval,
-          saltValue: [0, 0] as Interval,
-          habitableZones: [0, 0] as Interval,
-        }
+    const desal = desalResult ?? {
+      nodes: 0,
+      desalinationCost: [0, 0] as Interval,
+      waterProduction: [0, 0] as Interval,
+      saltValue: [0, 0] as Interval,
+      habitableZones: [0, 0] as Interval,
+    }
 
     let spirulineValue: Interval = [0, 0]
     let aquacultureValue: Interval = [0, 0]
     let mineralsValue: Interval = [0, 0]
 
-    if (desalinationEnabled && desal.nodes > 0) {
+    if (desal.nodes > 0) {
       const circResult = computeCircularAnalysis(
         {
           nodes: desal.nodes,
