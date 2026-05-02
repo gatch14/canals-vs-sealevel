@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: — Persistence, IA & Écologie Avancée
-status: in_progress
-last_updated: "2026-05-02T12:00:00.000Z"
+status: complete
+last_updated: "2026-05-02T14:20:00.000Z"
 progress:
   total_phases: 10
-  completed_phases: 9
+  completed_phases: 10
   total_plans: 30
-  completed_plans: 27
-  percent: 90
+  completed_plans: 30
+  percent: 100
 ---
 
 # STATE — Canal
@@ -19,14 +19,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-30)
 
 **Core value**: Déterminer si un réseau mondial de canaux peut neutraliser la montée des eaux — estimation chiffrée de l'impact potentiel
-**Current focus**: Milestone v2.0 — Phase 7: Persistance Locale
+**Current focus**: Milestone v2.0 — COMPLETE
 
 ---
 
 ## Current Status
 
-**Active phase**: Phase 10 — Impact Météorologique (ready to execute)
-**Status**: MILESTONE v2.0 IN PROGRESS — Phase 10 planned (3/3 plans ready), awaiting execution
+**Active phase**: (none)
+**Status**: MILESTONE v2.0 COMPLETE — toutes les phases exécutées, vérifiées et approuvées
 
 ---
 
@@ -43,7 +43,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | 7 | Persistance Locale | Complete (3/3 plans) |
 | 8 | Candidats IA | Complete (3/3 plans) |
 | 9 | Eau Salée & Dessalement | Complete (3/3 plans) |
-| 10 | Impact Météorologique | Planned (3/3 plans ready) |
+| 10 | Impact Météorologique | Complete (3/3 plans) |
 
 ---
 
@@ -53,10 +53,10 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 |--------|-------|
 | Phases total (v1+v2) | 10 |
 | Requirements mapped (v1) | 18/18 |
-| Requirements mapped (v2) | 0/13 |
+| Requirements mapped (v2) | 13/13 |
 | Plans completed (v1) | 18/18 |
-| Plans completed (v2) | 3/TBD |
-| Tests GREEN (v1+v2) | 107/107 |
+| Plans completed (v2) | 12/12 |
+| Tests GREEN (v1+v2) | 166/166 |
 
 ---
 
@@ -83,6 +83,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 - usePersistence : hydration Promise.all au montage + bulkPut+bulkDelete orphelins à chaque mutation + cancelled+unsub() cleanup
 - ClearDataButton pattern : dialog de confirmation (overlay fixed inset-0 + stopPropagation), db.transaction('rw') atomique, puis clearAll() store
 - usePersistence monté dans SidePanel.tsx (pas App.tsx) : cohérence avec useElevation + useRoutingWorker, zéro double montage
+- calcInducedPrecipitation prend influenceAreaKm2 en 3ème paramètre — correction dimensionnelle CR-01 phase 10
+- coolingDeltaC valeurs négatives, [0] < [1] < 0 — affiché en magnitude positive avec −{[min – max]} dans EcologyPanel
 
 ### Blockers
 
@@ -93,5 +95,5 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Phase 10 planifiée — meteorologyEngine.ts types+stubs+impl+UI en 3 plans TDD — vérification PASSED
-**Next action**: /gsd-execute-phase 10 — Impact Météorologique
+**Last action**: Phase 10 exécutée, review faite (CR-01 corrigé), vérification PASSED (9/9) — milestone v2.0 complet
+**Next action**: (milestone terminé)

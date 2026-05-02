@@ -22,7 +22,7 @@
 - [x] **Phase 7: Persistance Locale** — Canaux et paramètres survivent au refresh via IndexedDB Dexie.js
 - [x] **Phase 8: Candidats IA** — Bibliothèque de canaux mondiaux pré-calculés chargeables en un clic
 - [x] **Phase 9: Eau Salée & Dessalement** — Impact contextuel eau salée + nœuds dessalement solaire
-- [ ] **Phase 10: Impact Météorologique** — Évaporation, précipitations, refroidissement et indice de risque climatique
+- [x] **Phase 10: Impact Météorologique** — Évaporation, précipitations, refroidissement et indice de risque climatique
 
 ---
 
