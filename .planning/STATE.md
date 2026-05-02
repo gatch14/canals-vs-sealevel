@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-05-02)
 
 ## Current Position
 
-Phase: 12 — ROI & Break-even
-Plan: T01 (Wave 0 TDD — types + stubs + RED tests)
-Status: T01 complete — Wave 0 RED, prêt pour T02 (Wave 1 implémentation)
-Last activity: 2026-05-02 — T01 exécuté : 3 fichiers créés, 27 tests RED (21 failures), tsc 0 erreur
+Phase: 13 — Dashboard ROI (à démarrer)
+Plan: —
+Status: Phase 12 complète — Prêt à planifier et exécuter la Phase 13
+Last activity: 2026-05-02 — Phase 12 vérifiée : 27 tests GREEN, 223 suite GREEN, tsc 0
 
 ---
 
@@ -37,7 +37,7 @@ Last activity: 2026-05-02 — T01 exécuté : 3 fichiers créés, 27 tests RED (
 | Phase | Status | Completed |
 |-------|--------|-----------|
 | 11. Moteur Économique Circulaire | ✅ Complete | 2026-05-02 |
-| 12. ROI & Break-even | In progress (T01 complete) | - |
+| 12. ROI & Break-even | ✅ Complete | 2026-05-02 |
 | 13. Dashboard ROI | Not started | - |
 
 ---
@@ -87,5 +87,5 @@ Last activity: 2026-05-02 — T01 exécuté : 3 fichiers créés, 27 tests RED (
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Phase 12 T01 Wave 0 TDD — types RoiParams/RoiResult/RoiSummary + 6 stubs + 27 tests RED (commit f546881)
-**Next action**: Exécuter T02 (Wave 1 — implémentation roiEngine.ts pour passer les tests en GREEN)
+**Last action**: Phase 12 ROI & Break-even — 3 waves complètes, 27 tests GREEN, 223 suite GREEN, vérification PASS
+**Next action**: /gsd-autonomous --from 13  (Phase 13 Dashboard ROI — dernière phase du milestone)
