@@ -10,7 +10,6 @@ import { DashboardPanel } from './DashboardPanel'
 import { useElevation } from '../hooks/useElevation'
 import { useRoutingWorker } from '../hooks/useRoutingWorker'
 import { usePersistence } from '../hooks/usePersistence'
-import { useDesalination } from '../hooks/useDesalination'
 import { useCanalStore } from '../store/canalStore'
 import { ClearDataButton } from './ClearDataButton'
 import { CandidatesPanel } from './CandidatesPanel'
@@ -22,9 +21,7 @@ export function SidePanel() {
   useRoutingWorker()
   // Hydrate le store depuis IndexedDB au montage + sync Zustand→Dexie — Phase 7
   usePersistence()
-  // Maintient le moteur dessalement actif pour EcologyPanel — Phase 9
-  useDesalination()
-  const routingState = useCanalStore((s) => s.routingState)
+const routingState = useCanalStore((s) => s.routingState)
   const cancelRouting = useCanalStore((s) => s.cancelRouting)
 
   return (
