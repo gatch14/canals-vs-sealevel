@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: — Persistence, IA & Écologie Avancée
 status: in_progress
-last_updated: "2026-05-02T09:58:00Z"
+last_updated: "2026-05-02T11:30:08.381Z"
 progress:
   total_phases: 10
-  completed_phases: 8
-  total_plans: 21
-  completed_plans: 23
-  percent: 97
+  completed_phases: 9
+  total_plans: 27
+  completed_plans: 27
+  percent: 100
 ---
 
 # STATE — Canal
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 
 ## Current Status
 
-**Active phase**: Phase 9 — Eau Salée & Dessalement (next)
-**Status**: MILESTONE v2.0 IN PROGRESS — Phase 8 complete (3/3 plans), Phase 9 next
+**Active phase**: Phase 10 — Impact Météorologique (next)
+**Status**: MILESTONE v2.0 IN PROGRESS — Phase 9 complete (3/3 plans), Phase 10 next
 
 ---
 

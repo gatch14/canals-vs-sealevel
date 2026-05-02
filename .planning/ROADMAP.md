@@ -21,7 +21,7 @@
 
 - [x] **Phase 7: Persistance Locale** — Canaux et paramètres survivent au refresh via IndexedDB Dexie.js
 - [x] **Phase 8: Candidats IA** — Bibliothèque de canaux mondiaux pré-calculés chargeables en un clic
-- [ ] **Phase 9: Eau Salée & Dessalement** — Impact contextuel eau salée + nœuds dessalement solaire
+- [x] **Phase 9: Eau Salée & Dessalement** — Impact contextuel eau salée + nœuds dessalement solaire
 - [ ] **Phase 10: Impact Météorologique** — Évaporation, précipitations, refroidissement et indice de risque climatique
 
 ---
@@ -171,9 +171,9 @@ Plans:
 **Plans**: 3 plans (T01, T02, T03)
 
 Plans:
-- [ ] 09-T01-PLAN.md — Types desalination.ts + stubs desalinationEngine.ts + tests RED (Wave 1)
-- [ ] 09-T02-PLAN.md — Implémentation complète desalinationEngine.ts (ECO-05, DESAL-01 à DESAL-05) — tests GREEN (Wave 2)
-- [ ] 09-T03-PLAN.md — desalinationEnabled store + useDesalination hook + EcologyPanel étendu + SidePanel (Wave 3)
+- [x] 09-T01-PLAN.md — Types desalination.ts + stubs desalinationEngine.ts + tests RED (Wave 1)
+- [x] 09-T02-PLAN.md — Implémentation complète desalinationEngine.ts (ECO-05, DESAL-01 à DESAL-05) — tests GREEN (Wave 2)
+- [x] 09-T03-PLAN.md — desalinationEnabled store + useDesalination hook + EcologyPanel étendu + SidePanel (Wave 3)
 **UI hint**: yes
 
 ### Phase 10: Impact Météorologique
@@ -202,7 +202,7 @@ Plans:
 | 6. Dashboard Global | 3/3 | Complete | 2026-05-02 |
 | 7. Persistance Locale | 3/3 | Complete | 2026-05-02 |
 | 8. Candidats IA | 3/3 | Complete | 2026-05-02 |
-| 9. Eau Salée & Dessalement | 0/3 | Not started | - |
+| 9. Eau Salée & Dessalement | 3/3 | Complete | 2026-05-02 |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
 
 ---
