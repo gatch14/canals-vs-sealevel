@@ -26,9 +26,9 @@
 
 ### Milestone v3.0 — Économie Circulaire & ROI
 
-- [ ] **Phase 11: Moteur Économique Circulaire** — circularEngine.ts — production spiruline, aquaculture, engrais, surface agricole, durée de vie, habitabilité
-- [ ] **Phase 12: ROI & Break-even** — roiEngine.ts — valeur totale annuelle, ROI à 25/50/100 ans, break-even, comparaison multi-canaux
-- [ ] **Phase 13: Dashboard ROI** — Affichage UI de toute la chaîne de valeur économique et du break-even
+- [x] **Phase 11: Moteur Économique Circulaire** — circularEngine.ts — production spiruline, aquaculture, engrais, surface agricole, durée de vie, habitabilité
+- [x] **Phase 12: ROI & Break-even** — roiEngine.ts — valeur totale annuelle, ROI à 25/50/100 ans, break-even, comparaison multi-canaux
+- [x] **Phase 13: Dashboard ROI** — EconomicPanel.tsx — accordéon 4 états, 6 co-produits, ROI@25/50/100, tableau comparatif multi-canaux
 
 ---
 
@@ -241,8 +241,7 @@ Plans:
 **UI hint**: yes
 
 Plans:
-- [ ] 13-01-PLAN.md — EconomicPanel.tsx — accordéon Économie & ROI (4 états, co-produits, ROI, tableau comparatif)
-- [ ] 13-02-PLAN.md — SidePanel.tsx — intégration EconomicPanel en position finale
+- [x] 13-01-PLAN.md — EconomicPanel.tsx — accordéon Économie & ROI (4 états, co-produits, ROI, tableau comparatif) + intégration SidePanel
 
 ---
 
@@ -262,7 +261,7 @@ Plans:
 | 10. Impact Météorologique | 0/TBD | Not started | - |
 | 11. Moteur Économique Circulaire | 0/3 | In progress | - |
 | 12. ROI & Break-even | 0/TBD | Not started | - |
-| 13. Dashboard ROI | 0/TBD | Not started | - |
+| 13. Dashboard ROI | 1/1 | Complete | 2026-05-02 |
 
 ---
 
