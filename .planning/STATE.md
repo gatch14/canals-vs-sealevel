@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: — Économie Circulaire & ROI
 status: Phase 13 complète — Milestone v3.0 achevé
-last_updated: "2026-05-02T19:23:00Z"
-last_activity: "2026-05-02 — Phase 13-02 : SidePanel.tsx intégration EconomicPanel vérifiée, 223 tests GREEN, tsc 0 — Milestone v3.0 COMPLET"
+last_updated: "2026-05-02T18:11:22.326Z"
+last_activity: 2026-05-02
 progress:
   total_phases: 13
-  completed_phases: 13
+  completed_phases: 12
   total_plans: 38
   completed_plans: 35
-  percent: 100
+  percent: 92
 ---
 
 # STATE — Canal
@@ -29,7 +29,7 @@ See: .planning/PROJECT.md (updated 2026-05-02)
 Phase: 13 — Dashboard ROI (COMPLÈTE)
 Plan: 02 (dernier plan)
 Status: Phase 13 complète — Milestone v3.0 achevé
-Last activity: 2026-05-02 — Phase 13-02 : SidePanel.tsx intégration vérifiée, 223 tests GREEN, tsc 0
+Last activity: 2026-05-02
 
 ---
 
@@ -82,6 +82,27 @@ Last activity: 2026-05-02 — Phase 13-02 : SidePanel.tsx intégration vérifié
 ### Blockers
 
 (aucun)
+
+---
+
+## Deferred Items
+
+Items acknowledged and deferred at milestone close on 2026-05-02:
+
+| Category | Item | Status |
+|----------|------|--------|
+| seed | 001-v3-economic-ecosystem — Modèle économique intégré + écosystèmes générés | dormant |
+| uat_gap | Phase 03: 03-HUMAN-UAT.md — 3 scénarios visuels pending | partial |
+| uat_gap | Phase 07: 07-HUMAN-UAT.md — 3 scénarios visuels pending | partial |
+| uat_gap | Phase 09: 09-HUMAN-UAT.md — 3 scénarios visuels pending | partial |
+| verification_gap | Phase 03: 03-VERIFICATION.md — tests visuels navigateur | human_needed |
+| verification_gap | Phase 06: 06-VERIFICATION.md — tests visuels navigateur | human_needed |
+| verification_gap | Phase 10: 10-VERIFICATION.md — tests visuels navigateur | human_needed |
+| requirements_partial | CIRC-01: tonnes/an spiruline calculées mais non affichées dans UI | partial |
+| requirements_partial | CIRC-02: tonnes/an aquaculture calculées mais non affichées dans UI | partial |
+| requirements_partial | CIRC-03: mg/k/caTonnes calculées mais non affichées dans UI | partial |
+
+Known deferred items at close: 10 (7 original + 3 CIRC display gaps found by integration checker)
 
 ---
 
