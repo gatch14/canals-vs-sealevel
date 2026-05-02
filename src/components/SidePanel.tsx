@@ -12,6 +12,7 @@ import { useRoutingWorker } from '../hooks/useRoutingWorker'
 import { usePersistence } from '../hooks/usePersistence'
 import { useCanalStore } from '../store/canalStore'
 import { ClearDataButton } from './ClearDataButton'
+import { CandidatesPanel } from './CandidatesPanel'
 
 export function SidePanel() {
   // Déclenche automatiquement le fetch d'élévation quand un canal est sélectionné
@@ -113,6 +114,9 @@ export function SidePanel() {
 
         {/* Section 6 — Dashboard Global (accordéon) — Phase 6 */}
         <DashboardPanel />
+
+        {/* Section 8 — Candidats mondiaux pré-calculés (Phase 8) */}
+        <CandidatesPanel />
 
         {/* Section 7 — Effacement données (Phase 7) */}
         <div className="px-4 py-4 border-t border-white/[0.08] mt-auto">
