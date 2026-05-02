@@ -151,7 +151,12 @@ Plans:
 1. L'utilisateur voit une liste de 20 à 30 canaux mondiaux candidats triés par ΔSL estimé décroissant — sans attente réseau (données bundlées)
 2. L'utilisateur peut cliquer sur un candidat pour voir ses métadonnées (nom, région, ΔSL estimé [min, max], faisabilité gravitaire, coût estimé)
 3. L'utilisateur peut charger un candidat sur la carte en un clic — le tracé apparaît immédiatement et tous les calculs existants (ΔSL, coût, écologie) s'appliquent automatiquement
-**Plans**: TBD
+**Plans**: 3 plans (T01, T02, T03)
+
+Plans:
+- [ ] 08-T01-PLAN.md — Type CanalCandidate + candidates.json (25 candidats) + stubs tests RED (Wave 0)
+- [ ] 08-T02-PLAN.md — useCandidates hook + action loadCandidate store + tests GREEN (Wave 1)
+- [ ] 08-T03-PLAN.md — CandidatesPanel.tsx + CandidateListItem.tsx + SidePanel Section 8 (Wave 2)
 **UI hint**: yes
 
 ### Phase 9: Eau Salée & Dessalement
@@ -191,7 +196,7 @@ Plans:
 | 5. Analyse Écologique | 3/3 | Complete | 2026-05-01 |
 | 6. Dashboard Global | 3/3 | Complete | 2026-05-02 |
 | 7. Persistance Locale | 3/3 | Complete | 2026-05-02 |
-| 8. Candidats IA | 0/TBD | Not started | - |
+| 8. Candidats IA | 0/3 | Planned | - |
 | 9. Eau Salée & Dessalement | 0/TBD | Not started | - |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
 
