@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: — Persistence, IA & Écologie Avancée
 status: in_progress
-last_updated: "2026-05-02T09:35:00Z"
+last_updated: "2026-05-02T09:58:00Z"
 progress:
   total_phases: 10
-  completed_phases: 7
+  completed_phases: 8
   total_plans: 21
-  completed_plans: 20
-  percent: 95
+  completed_plans: 23
+  percent: 97
 ---
 
 # STATE — Canal
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 
 ## Current Status
 
-**Active phase**: Phase 8 — Candidats IA (next)
-**Status**: MILESTONE v2.0 IN PROGRESS — Phase 7 complete (3/3 plans), Phase 8 next
+**Active phase**: Phase 9 — Eau Salée & Dessalement (next)
+**Status**: MILESTONE v2.0 IN PROGRESS — Phase 8 complete (3/3 plans), Phase 9 next
 
 ---
 
@@ -41,7 +41,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | 5 | Analyse Écologique | Complete (3/3 plans) |
 | 6 | Dashboard Global | Complete (3/3 plans) |
 | 7 | Persistance Locale | Complete (3/3 plans) |
-| 8 | Candidats IA | Not started |
+| 8 | Candidats IA | Complete (3/3 plans) |
 | 9 | Eau Salée & Dessalement | Not started |
 | 10 | Impact Météorologique | Not started |
 
@@ -56,7 +56,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | Requirements mapped (v2) | 0/13 |
 | Plans completed (v1) | 18/18 |
 | Plans completed (v2) | 3/TBD |
-| Tests GREEN (v1+v2) | 101/101 |
+| Tests GREEN (v1+v2) | 107/107 |
 
 ---
 
@@ -76,6 +76,7 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 - 3 scénarios dashboard : optimiste 1.0, réaliste 0.6, pessimiste 0.3
 - Tous les modules de calcul purs (calculationEngine, ecologyEngine, dashboardEngine) — testables sans DOM
 - Candidats IA : données pre-computed bundlées en JSON statique — zéro appel réseau au chargement
+- Phase 8 : SORTED_CANDIDATES constante module-level (pas useMemo) — testable sans contexte React, cohérent avec pattern suite tests existants
 - StoredCanal = Omit<Canal, elevation|elevationLoading|elevationError> : champs éphémères exclus de l'IndexedDB, re-fetchés par useElevation
 - db.ts singleton Dexie (CanalDatabase) : tables canals (StoredCanal, PK=id UUID) + settings (SettingsRecord, PK=key)
 - Subscribe basique Zustand sans subscribeWithSelector : comparaison de références prévCanals !== state.canals pour détecter mutations
@@ -92,5 +93,5 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Phase 7 T03 exécuté — ClearDataButton.tsx + SidePanel intégration usePersistence — Phase 7 complete (PERS-01 + PERS-02 + PERS-03) — 101/101 tests GREEN
-**Next action**: /gsd-plan-phase 8 — Candidats IA
+**Last action**: Phase 8 complète — CanalCandidate type + 25 candidates.json + useCandidates + loadCandidate + CandidatesPanel UI — 107/107 tests GREEN
+**Next action**: /gsd-plan-phase 9 — Eau Salée & Dessalement

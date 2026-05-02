@@ -20,7 +20,7 @@
 ### Milestone v2.0 — Persistence, IA & Écologie Avancée
 
 - [x] **Phase 7: Persistance Locale** — Canaux et paramètres survivent au refresh via IndexedDB Dexie.js
-- [ ] **Phase 8: Candidats IA** — Bibliothèque de canaux mondiaux pré-calculés chargeables en un clic
+- [x] **Phase 8: Candidats IA** — Bibliothèque de canaux mondiaux pré-calculés chargeables en un clic
 - [ ] **Phase 9: Eau Salée & Dessalement** — Impact contextuel eau salée + nœuds dessalement solaire
 - [ ] **Phase 10: Impact Météorologique** — Évaporation, précipitations, refroidissement et indice de risque climatique
 
@@ -154,9 +154,9 @@ Plans:
 **Plans**: 3 plans (T01, T02, T03)
 
 Plans:
-- [ ] 08-T01-PLAN.md — Type CanalCandidate + candidates.json (25 candidats) + stubs tests RED (Wave 0)
-- [ ] 08-T02-PLAN.md — useCandidates hook + action loadCandidate store + tests GREEN (Wave 1)
-- [ ] 08-T03-PLAN.md — CandidatesPanel.tsx + CandidateListItem.tsx + SidePanel Section 8 (Wave 2)
+- [x] 08-T01-PLAN.md — Type CanalCandidate + candidates.json (25 candidats) + stubs tests RED (Wave 0)
+- [x] 08-T02-PLAN.md — useCandidates hook + action loadCandidate store + tests GREEN (Wave 1)
+- [x] 08-T03-PLAN.md — CandidatesPanel.tsx + CandidateListItem.tsx + SidePanel Section 8 (Wave 2)
 **UI hint**: yes
 
 ### Phase 9: Eau Salée & Dessalement
@@ -196,7 +196,7 @@ Plans:
 | 5. Analyse Écologique | 3/3 | Complete | 2026-05-01 |
 | 6. Dashboard Global | 3/3 | Complete | 2026-05-02 |
 | 7. Persistance Locale | 3/3 | Complete | 2026-05-02 |
-| 8. Candidats IA | 0/3 | Planned | - |
+| 8. Candidats IA | 3/3 | Complete | 2026-05-02 |
 | 9. Eau Salée & Dessalement | 0/TBD | Not started | - |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
 
