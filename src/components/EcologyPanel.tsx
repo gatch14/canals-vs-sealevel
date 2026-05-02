@@ -1,13 +1,16 @@
 // src/components/EcologyPanel.tsx
 // Accordéon Phase 5 — analyse écologique ECO-01 à ECO-04 (6 états)
 // Étendu Phase 9 — alerte eau salée ECO-05 + section dessalement (DESAL-01 à DESAL-05)
+// Étendu Phase 10 — section météorologique (METEO-01 à METEO-05)
 // Pattern dupliqué de CalculationPanel.tsx — même structure, mêmes classes Tailwind.
 import { useState, useEffect } from 'react'
 import { ChevronDown, AlertCircle } from 'lucide-react'
 import { useCanalStore } from '../store/canalStore'
 import { useEcology } from '../hooks/useEcology'
 import { useDesalination } from '../hooks/useDesalination'
+import { useMeteorology } from '../hooks/useMeteorology'
 import type { Interval } from '../types/calculation'
+import type { WeatherRisk } from '../types/meteorology'
 
 // ─── Helpers de formatage UX-01 ──────────────────────────────────────────────
 
@@ -21,6 +24,20 @@ function formatNumber(n: number, decimals: number = 3): string {
 /** [X – Y] unité — em dash U+2013 obligatoire (UI-SPEC §Number Formatting) */
 function formatInterval(iv: Interval, unit: string, decimals: number = 3): string {
   return `[${formatNumber(iv[0], decimals)} – ${formatNumber(iv[1], decimals)}] ${unit}`
+}
+
+// ─── Labels météo (METEO-05) ────────────────────────────────────────────────
+
+const WEATHER_RISK_COLORS: Record<WeatherRisk, string> = {
+  low: 'text-green-400',
+  moderate: 'text-amber-400',
+  high: 'text-red-400',
+}
+
+const WEATHER_RISK_LABELS: Record<WeatherRisk, string> = {
+  low: 'Faible',
+  moderate: 'Modéré',
+  high: 'Élevé',
 }
 
 // ─── Labels d'aridité ────────────────────────────────────────────────────────
@@ -41,6 +58,7 @@ export function EcologyPanel() {
   const desalinationEnabled = useCanalStore((s) => s.desalinationEnabled)
   const toggleDesalination = useCanalStore((s) => s.toggleDesalination)
   const desalinationResult = useDesalination()
+  const meteorologyResult = useMeteorology()
 
   const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
 
@@ -250,6 +268,49 @@ export function EcologyPanel() {
                   Canal trop court pour un n&oelig;ud (minimum 500 km)
                 </p>
               )}
+            </div>
+          )}
+
+          {/* ─── Section météorologique (METEO-01 à METEO-05) ────────────────── */}
+          {!noCanal && meteorologyResult && (
+            <div className="border-t border-white/[0.06] mt-2 pt-2 px-4 pb-3 flex flex-col gap-2">
+              <p className="text-[11px] text-gray-400 uppercase tracking-wider">Impact m&eacute;t&eacute;orologique</p>
+              <dl className="flex flex-col gap-1">
+                <div className="flex flex-col gap-[2px]">
+                  <dt className="text-[11px] text-gray-500 uppercase tracking-wider">&Eacute;vaporation</dt>
+                  <dd className="text-[13px] font-semibold text-white">
+                    {formatInterval(meteorologyResult.evaporationKm3, 'km³/an')}
+                  </dd>
+                </div>
+
+                <div className="flex flex-col gap-[2px]">
+                  <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Rayon d&apos;influence</dt>
+                  <dd className="text-[13px] font-semibold text-white">
+                    {formatInterval(meteorologyResult.influenceRadiusKm, 'km', 0)}
+                  </dd>
+                </div>
+
+                <div className="flex flex-col gap-[2px]">
+                  <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Pr&eacute;cipitations induites</dt>
+                  <dd className="text-[13px] font-semibold text-white">
+                    {formatInterval(meteorologyResult.precipitationMmY, 'mm/an', 0)}
+                  </dd>
+                </div>
+
+                <div className="flex flex-col gap-[2px]">
+                  <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Refroidissement local</dt>
+                  <dd className="text-[13px] font-semibold text-white">
+                    {formatInterval(meteorologyResult.coolingDeltaC, '°C', 2)}
+                  </dd>
+                </div>
+
+                <div className="flex flex-col gap-[2px]">
+                  <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Risque m&eacute;t&eacute;o</dt>
+                  <dd className={`text-[13px] font-semibold ${WEATHER_RISK_COLORS[meteorologyResult.weatherRisk]}`}>
+                    {WEATHER_RISK_LABELS[meteorologyResult.weatherRisk]}
+                  </dd>
+                </div>
+              </dl>
             </div>
           )}
         </div>
