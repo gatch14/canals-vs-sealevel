@@ -190,7 +190,7 @@ Plans:
 | 4. Moteur de Calcul | 3/3 | Complete | 2026-05-01 |
 | 5. Analyse Écologique | 3/3 | Complete | 2026-05-01 |
 | 6. Dashboard Global | 3/3 | Complete | 2026-05-02 |
-| 7. Persistance Locale | 1/3 | In progress | - |
+| 7. Persistance Locale | 3/3 | Complete | 2026-05-02 |
 | 8. Candidats IA | 0/TBD | Not started | - |
 | 9. Eau Salée & Dessalement | 0/TBD | Not started | - |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
