@@ -179,24 +179,9 @@ export function EcologyPanel() {
               )}
             </>
           )}
-          {/* Alerte eau salée critique (ECO-05) — s'affiche indépendamment du toggle */}
-          {!noCanal && !noProfile && desalinationResult?.ecosystemImpact === 'critical' && (
-            <div
-              role="alert"
-              className="border-t border-white/[0.06] mt-2 pt-2 px-4 pb-3 flex flex-col gap-1"
-            >
-              <p className="text-[11px] text-red-400 font-semibold uppercase tracking-wider flex items-center gap-1">
-                <AlertCircle size={12} className="shrink-0" />
-                Alerte &mdash; Eau sal&eacute;e (ECO-05)
-              </p>
-              <p className="text-[12px] text-red-300 leading-relaxed">
-                Le canal traverse une zone agricole ou un cours d&apos;eau &mdash; risque de contamination saline irr&eacute;versible
-              </p>
-            </div>
-          )}
-
           {/* Toggle dessalement + section résultats (DESAL-01 à DESAL-05) */}
-          {!noCanal && !noProfile && (
+          {/* Note : ECO-05 alerte 'critical' reportée jusqu'à GeoJSON cours d'eau disponible */}
+          {!noCanal && (
             <div className="border-t border-white/[0.06] mt-2 pt-2 px-4 pb-3 flex flex-col gap-2">
               {/* Toggle */}
               <button

@@ -10,9 +10,9 @@ import type { Interval } from './calculation'
  * Niveau d'impact de l'eau salée selon l'écosystème traversé (ECO-05).
  * - 'low'      : zone désertique aride — impact faible, sol déjà salin
  * - 'neutral'  : zone non-classifiée — impact modéré inconnu
- * - 'critical' : cours d'eau ou zone agricole — alerte rouge obligatoire
+ * Note : 'critical' (cours d'eau/zones agricoles) reporté jusqu'à disponibilité GeoJSON dédié
  */
-export type EcosystemImpactLevel = 'low' | 'neutral' | 'critical'
+export type EcosystemImpactLevel = 'low' | 'neutral'
 
 // ─── Paramètres d'entrée ──────────────────────────────────────────────────────
 

@@ -28,11 +28,11 @@ describe('classifyEcosystem — impact eau salée (ECO-05)', () => {
     expect(result).toBe('low')
   })
 
-  it('retourne critical ou neutral pour des points hors désert (Europe tempérée)', () => {
-    // Points en Europe — hors désert, potentiellement zones agricoles
+  it('retourne neutral pour des points hors désert (Europe tempérée)', () => {
+    // Points en Europe — hors désert, retourne neutral ('critical' reporté)
     const europePoints: Coord[] = [[2.35, 48.85], [4.9, 52.37], [13.4, 52.5]]
     const result = classifyEcosystem(europePoints, DESERT_FEATURES)
-    expect(['neutral', 'critical']).toContain(result)
+    expect(result).toBe('neutral')
   })
 
   it('retourne neutral pour des points en zone neutre (haute mer/littoral)', () => {
@@ -237,7 +237,7 @@ describe('computeDesalinationAnalysis — orchestrateur (DESAL-01 à DESAL-05 + 
     expect(result!.habitableZones[0]).toBeGreaterThan(0)
     expect(result!.desalinationCost[0]).toBe(100_000_000)
     expect(result!.desalinationCost[1]).toBe(300_000_000)
-    expect(['low', 'neutral', 'critical']).toContain(result!.ecosystemImpact)
+    expect(['low', 'neutral']).toContain(result!.ecosystemImpact)
   })
 
   it('retourne 0 nœuds et coût [0,0] pour un canal de 300 km', () => {
