@@ -1,8 +1,8 @@
 # Requirements — Canal
 
-**Version:** v2
+**Version:** v3
 **Date:** 2026-05-02
-**Status:** Roadmap v2.0 traceability mapped
+**Status:** Roadmap v3.0 traceability pending
 
 ---
 
@@ -43,50 +43,72 @@
 
 ---
 
-## v2 Requirements (Milestone v2.0)
+## v2 Requirements (Milestone v2.0 — Complete)
 
 ### Persistance Locale (PERS)
 
-- [ ] **PERS-01**: L'utilisateur retrouve ses canaux tracés après un refresh de la page (IndexedDB via Dexie.js)
-- [ ] **PERS-02**: L'utilisateur retrouve les paramètres de calcul (largeur, profondeur) après un refresh
-- [ ] **PERS-03**: L'utilisateur peut effacer toutes les données locales depuis l'interface
+- [x] **PERS-01**: L'utilisateur retrouve ses canaux tracés après un refresh de la page (IndexedDB via Dexie.js)
+- [x] **PERS-02**: L'utilisateur retrouve les paramètres de calcul (largeur, profondeur) après un refresh
+- [x] **PERS-03**: L'utilisateur peut effacer toutes les données locales depuis l'interface
 
 ### Candidats IA (IA)
 
-- [ ] **IA-01**: L'utilisateur peut consulter une liste de canaux mondiaux pré-calculés classés par impact ΔSL estimé
-- [ ] **IA-02**: L'utilisateur peut charger un canal candidat sur la carte en un clic (tracé + métadonnées)
-- [ ] **IA-03**: L'utilisateur voit les métadonnées de chaque candidat (nom, région, ΔSL estimé, faisabilité gravitaire, coût estimé)
+- [x] **IA-01**: L'utilisateur peut consulter une liste de canaux mondiaux pré-calculés classés par impact ΔSL estimé
+- [x] **IA-02**: L'utilisateur peut charger un canal candidat sur la carte en un clic (tracé + métadonnées)
+- [x] **IA-03**: L'utilisateur voit les métadonnées de chaque candidat (nom, région, ΔSL estimé, faisabilité gravitaire, coût estimé)
 
 ### Eau Salée Contextuelle (ECO)
 
-- [ ] **ECO-05**: L'utilisateur voit l'impact écologique du transit d'eau salée différencié par écosystème traversé (désert aride = faible impact ; cours d'eau ou zone agricole = alerte critique)
+- [x] **ECO-05**: L'utilisateur voit l'impact écologique du transit d'eau salée différencié par écosystème traversé (désert aride = faible impact ; cours d'eau ou zone agricole = alerte critique)
 
 ### Dessalement Solaire (DESAL)
 
-- [ ] **DESAL-01**: L'utilisateur peut activer l'option "nœuds de dessalement solaire" sur un canal
-- [ ] **DESAL-02**: L'utilisateur voit le volume d'eau douce produit par les nœuds (m³/jour) selon longueur du canal et ensoleillement
-- [ ] **DESAL-03**: L'utilisateur voit la valeur économique du sel et minéraux récupérés (€/an)
-- [ ] **DESAL-04**: L'utilisateur voit la superficie de zones potentiellement habitables créées autour des nœuds (km²)
-- [ ] **DESAL-05**: L'utilisateur voit le coût d'infrastructure de dessalement intégré au coût total du canal
+- [x] **DESAL-01**: L'utilisateur peut activer l'option "nœuds de dessalement solaire" sur un canal
+- [x] **DESAL-02**: L'utilisateur voit le volume d'eau douce produit par les nœuds (m³/jour) selon longueur du canal et ensoleillement
+- [x] **DESAL-03**: L'utilisateur voit la valeur économique du sel et minéraux récupérés (€/an)
+- [x] **DESAL-04**: L'utilisateur voit la superficie de zones potentiellement habitables créées autour des nœuds (km²)
+- [x] **DESAL-05**: L'utilisateur voit le coût d'infrastructure de dessalement intégré au coût total du canal
 
 ### Impact Météorologique (METEO)
 
-- [ ] **METEO-01**: L'utilisateur voit le volume d'évaporation estimé généré par le système canal+bassin (km³/an)
-- [ ] **METEO-02**: L'utilisateur voit le rayon d'influence climatique estimé autour du canal (km)
-- [ ] **METEO-03**: L'utilisateur voit les précipitations supplémentaires estimées dans la zone d'influence (mm/an)
-- [ ] **METEO-04**: L'utilisateur voit le refroidissement local estimé par évapotranspiration (°C)
-- [ ] **METEO-05**: L'utilisateur voit un indice de risque météorologique lié à l'introduction d'humidité en zone aride
+- [x] **METEO-01**: L'utilisateur voit le volume d'évaporation estimé généré par le système canal+bassin (km³/an)
+- [x] **METEO-02**: L'utilisateur voit le rayon d'influence climatique estimé autour du canal (km)
+- [x] **METEO-03**: L'utilisateur voit les précipitations supplémentaires estimées dans la zone d'influence (mm/an)
+- [x] **METEO-04**: L'utilisateur voit le refroidissement local estimé par évapotranspiration (°C)
+- [x] **METEO-05**: L'utilisateur voit un indice de risque météorologique lié à l'introduction d'humidité en zone aride
 
 ---
 
-## Déférés vers v3
+## v3 Requirements (Milestone v3.0 — Économie Circulaire & ROI)
 
-- Modèle économique intégré : ROI, break-even, valeur foncière zones habitables
-- Production spiruline / aquaculture dans le bassin terminal
+### Écosystème Productif (CIRC)
+
+- [ ] **CIRC-01**: L'utilisateur voit la production annuelle de spiruline estimée (tonnes/an + €/an) depuis le bassin terminal salin
+- [ ] **CIRC-02**: L'utilisateur voit la production d'aquaculture marine estimée (tonnes protéines/an + €/an) dans le bassin terminal
+- [ ] **CIRC-03**: L'utilisateur voit la production d'engrais agricoles (tonnes de magnésium, potassium, calcium/an + €/an) extraits de la saumure
+- [ ] **CIRC-04**: L'utilisateur voit la surface agricole potentielle créée (km² cultivables) grâce à l'eau douce et aux engrais disponibles localement
+
+### Durée de Vie & Habitabilité (VIE)
+
+- [ ] **VIE-01**: L'utilisateur voit la durée de vie estimée du canal (années avant entretien majeur — envasement, dépôts minéraux, maintenance structure)
+- [ ] **VIE-02**: L'utilisateur voit la timeline habitabilité — dans combien d'années la zone autour du canal devient habitable et exploitable agricolement
+
+### ROI & Rentabilité (ROI)
+
+- [ ] **ROI-01**: L'utilisateur voit la valeur économique totale annuelle générée (€/an) — somme de tous les co-produits (eau, sel, spiruline, engrais, aquaculture)
+- [ ] **ROI-02**: L'utilisateur voit le ROI global — investissement total vs revenus cumulés projetés sur 25, 50 et 100 ans
+- [ ] **ROI-03**: L'utilisateur voit le break-even — en combien d'années le canal rembourse son coût de construction initial
+- [ ] **ROI-04**: L'utilisateur peut comparer le ROI de plusieurs canaux tracés dans un tableau récapitulatif
+
+---
+
+## Déférés vers v4
+
 - Réseau ramifié multi-canaux (colonne vertébrale + ramifications eau douce)
 - Export PDF / rapport de l'étude
 - Partage de scénarios via URL
 - Simulation hydrodynamique haute fidélité
+- Valeur foncière zones habitables (dépend géographie/pays — trop variable)
 
 ---
 
@@ -122,20 +144,30 @@
 | GLOB-01 | Phase 6 | Complete |
 | GLOB-02 | Phase 6 | Complete |
 | GLOB-03 | Phase 6 | Complete |
-| PERS-01 | Phase 7 | Pending |
-| PERS-02 | Phase 7 | Pending |
-| PERS-03 | Phase 7 | Pending |
-| IA-01 | Phase 8 | Pending |
-| IA-02 | Phase 8 | Pending |
-| IA-03 | Phase 8 | Pending |
-| ECO-05 | Phase 9 | Pending |
-| DESAL-01 | Phase 9 | Pending |
-| DESAL-02 | Phase 9 | Pending |
-| DESAL-03 | Phase 9 | Pending |
-| DESAL-04 | Phase 9 | Pending |
-| DESAL-05 | Phase 9 | Pending |
-| METEO-01 | Phase 10 | Pending |
-| METEO-02 | Phase 10 | Pending |
-| METEO-03 | Phase 10 | Pending |
-| METEO-04 | Phase 10 | Pending |
-| METEO-05 | Phase 10 | Pending |
+| PERS-01 | Phase 7 | Complete |
+| PERS-02 | Phase 7 | Complete |
+| PERS-03 | Phase 7 | Complete |
+| IA-01 | Phase 8 | Complete |
+| IA-02 | Phase 8 | Complete |
+| IA-03 | Phase 8 | Complete |
+| ECO-05 | Phase 9 | Complete |
+| DESAL-01 | Phase 9 | Complete |
+| DESAL-02 | Phase 9 | Complete |
+| DESAL-03 | Phase 9 | Complete |
+| DESAL-04 | Phase 9 | Complete |
+| DESAL-05 | Phase 9 | Complete |
+| METEO-01 | Phase 10 | Complete |
+| METEO-02 | Phase 10 | Complete |
+| METEO-03 | Phase 10 | Complete |
+| METEO-04 | Phase 10 | Complete |
+| METEO-05 | Phase 10 | Complete |
+| CIRC-01 | Phase TBD | Pending |
+| CIRC-02 | Phase TBD | Pending |
+| CIRC-03 | Phase TBD | Pending |
+| CIRC-04 | Phase TBD | Pending |
+| VIE-01 | Phase TBD | Pending |
+| VIE-02 | Phase TBD | Pending |
+| ROI-01 | Phase TBD | Pending |
+| ROI-02 | Phase TBD | Pending |
+| ROI-03 | Phase TBD | Pending |
+| ROI-04 | Phase TBD | Pending |

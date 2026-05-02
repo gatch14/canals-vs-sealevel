@@ -68,16 +68,19 @@ Déterminer si et dans quelle mesure un réseau mondial de canaux peut neutralis
 | Ordres de grandeur d'abord | Permet d'aller vite et de valider si l'idée est viable avant d'investir dans la précision | — Pending |
 | Architecture 100% client-side | Clonage immédiat sans dépendances externes — démocratise l'accès au projet | — Pending |
 
-## Current Milestone: v2.0 Persistence, IA & Écologie Avancée
+## Current Milestone: v3.0 Économie Circulaire & ROI
 
-**Goal:** Transformer l'outil en plateforme de travail avec persistance des données, candidats pré-calculés, et une analyse écologique/climatique scientifiquement plus honnête incluant l'eau salée, le dessalement solaire et l'impact météorologique long terme.
+**Goal:** Transformer le canal d'un coût en un système potentiellement rentable — calculer la chaîne de valeur complète (spiruline, engrais, agriculture, durée de vie) et le break-even économique.
 
 **Target features:**
-- Persistance locale (Dexie.js) — canaux sauvegardés en IndexedDB, survie au refresh
-- Candidats IA — top 20-30 canaux mondiaux pré-calculés chargeables en 1 clic
-- ECO-05 eau salée contextuelle — impact transit selon écosystème traversé (désert = faible, fleuve = alerte)
-- Dessalement solaire — nœuds panneaux flottants + RO : eau douce produite, sel récupéré (€), zones habitables (km²)
-- Impact météorologique long terme — évaporation, humidité, précipitations, refroidissement local, risque gradients
+- ROI global : coût construction vs revenus cumulés sur N années (€)
+- Break-even : en combien d'années le canal est rentable
+- Production spiruline/aquaculture : tonnes/an + valeur €/an depuis le bassin terminal
+- Engrais agricoles : minéraux extraits (Mg, K, Ca) → fertilisants + surface agricole potentielle (km²)
+- Terres cultivables : eau douce + engrais disponibles → km² arables autour des nœuds
+- Durée de vie du canal : années avant entretien majeur (envasement, dépôts, maintenance)
+- Valeur économique totale : somme de tous les co-produits en €/an
+- Timeline habitabilité : dans combien d'années une zone devient-elle habitable et exploitable
 
 ## Evolution
 
