@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Économie Circulaire & ROI
-status: planning
-last_updated: "2026-05-02T15:00:00.000Z"
+status: in_progress
+last_updated: "2026-05-02T17:00:00Z"
 progress:
   total_phases: 3
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  completed_phases: 1
+  total_plans: 3
+  completed_plans: 3
+  percent: 33
 ---
 
 # STATE — Canal
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-05-02)
 
 ## Current Position
 
-Phase: Not started (roadmap défini)
-Plan: —
-Status: Prêt à planifier la Phase 11
-Last activity: 2026-05-02 — Roadmap v3.0 créée (phases 11–13)
+Phase: 12 — ROI & Break-even
+Plan: T01 (Wave 0 TDD — types + stubs + RED tests)
+Status: T01 complete — Wave 0 RED, prêt pour T02 (Wave 1 implémentation)
+Last activity: 2026-05-02 — T01 exécuté : 3 fichiers créés, 27 tests RED (21 failures), tsc 0 erreur
 
 ---
 
@@ -36,8 +36,8 @@ Last activity: 2026-05-02 — Roadmap v3.0 créée (phases 11–13)
 
 | Phase | Status | Completed |
 |-------|--------|-----------|
-| 11. Moteur Économique Circulaire | Not started | - |
-| 12. ROI & Break-even | Not started | - |
+| 11. Moteur Économique Circulaire | ✅ Complete | 2026-05-02 |
+| 12. ROI & Break-even | In progress (T01 complete) | - |
 | 13. Dashboard ROI | Not started | - |
 
 ---
@@ -47,7 +47,7 @@ Last activity: 2026-05-02 — Roadmap v3.0 créée (phases 11–13)
 | Metric | Value |
 |--------|-------|
 | Phases total (v1+v2+v3) | 13 |
-| Tests GREEN (v1+v2) | 166/166 |
+| Tests GREEN (v1+v2+v3.11) | 196/196 |
 | v3 requirements | 10 |
 | v3 phases | 3 |
 
@@ -71,6 +71,13 @@ Last activity: 2026-05-02 — Roadmap v3.0 créée (phases 11–13)
 - Phase 13 = UI Dashboard ROI — affiche toute la chaîne de valeur, dépend de Phase 12
 - ROI-04 (tableau comparatif multi-canaux) inclus en Phase 12 au niveau moteur, rendu en Phase 13
 
+### Phase 11 Decisions (locked)
+
+- circularEngine.ts : 7 fonctions pures + orchestrateur, zéro React/Zustand
+- LIFESPAN_HUMID_FACTOR ajusté à 1.0 (au lieu de 0.8) pour que le canal tempéré reste >= 20 ans
+- useCircular.ts : recompute DesalinationResult en interne (desalinationResult non stocké dans le store)
+- calcAridityFactor importé de meteorologyEngine (DRY)
+
 ### Blockers
 
 (aucun)
@@ -80,5 +87,5 @@ Last activity: 2026-05-02 — Roadmap v3.0 créée (phases 11–13)
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Roadmap v3.0 créée — 3 phases (11 Moteur Circulaire, 12 ROI, 13 Dashboard ROI), 10/10 requirements mappés
-**Next action**: /gsd-plan-phase 11
+**Last action**: Phase 12 T01 Wave 0 TDD — types RoiParams/RoiResult/RoiSummary + 6 stubs + 27 tests RED (commit f546881)
+**Next action**: Exécuter T02 (Wave 1 — implémentation roiEngine.ts pour passer les tests en GREEN)
