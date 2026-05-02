@@ -50,6 +50,10 @@ interface CanalStore {
 
   // Candidats IA — Phase 8
   loadCandidate: (candidate: CanalCandidate) => void
+
+  // Dessalement — Phase 9
+  desalinationEnabled: boolean
+  toggleDesalination: () => void
 }
 
 export const useCanalStore = create<CanalStore>()((set, get) => ({
@@ -61,6 +65,9 @@ export const useCanalStore = create<CanalStore>()((set, get) => ({
   routingState: 'idle' as RoutingState,
   routingStart: null,
   routingEnd: null,
+
+  desalinationEnabled: false,
+  toggleDesalination: () => set((state) => ({ desalinationEnabled: !state.desalinationEnabled })),
 
   startRouting: () => set({ mode: 'routing', routingState: 'selecting-start', routingStart: null, routingEnd: null }),
 
@@ -160,6 +167,7 @@ export const useCanalStore = create<CanalStore>()((set, get) => ({
     routingStart: null,
     routingEnd: null,
     calcParams: DEFAULT_CALC_PARAMS,
+    desalinationEnabled: false,
   }),
 
   hydrateCanals: (canals) => set({ canals }),
