@@ -135,7 +135,12 @@ Plans:
 2. L'utilisateur saisit largeur et profondeur pour un canal, rafraîchit la page — les valeurs sont pré-remplies à la réouverture
 3. L'utilisateur peut effacer toutes les données locales depuis l'interface et retrouver l'app dans son état initial vide
 4. Aucune connexion réseau ou serveur n'est requise — la persistance fonctionne entièrement via IndexedDB local
-**Plans**: TBD
+**Plans**: 3 plans (T01, T02, T03)
+
+Plans:
+- [ ] 07-T01-PLAN.md — Install dexie + fake-indexeddb, StoredCanal type, stubs tests RED
+- [ ] 07-T02-PLAN.md — db.ts singleton Dexie + actions store (clearAll, hydrateCanals) + usePersistence.ts → tests GREEN
+- [ ] 07-T03-PLAN.md — ClearDataButton.tsx + SidePanel intégration (usePersistence + bouton effacement)
 **UI hint**: yes
 
 ### Phase 8: Candidats IA
@@ -185,7 +190,7 @@ Plans:
 | 4. Moteur de Calcul | 3/3 | Complete | 2026-05-01 |
 | 5. Analyse Écologique | 3/3 | Complete | 2026-05-01 |
 | 6. Dashboard Global | 3/3 | Complete | 2026-05-02 |
-| 7. Persistance Locale | 0/TBD | Not started | - |
+| 7. Persistance Locale | 0/3 | Planned | - |
 | 8. Candidats IA | 0/TBD | Not started | - |
 | 9. Eau Salée & Dessalement | 0/TBD | Not started | - |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
