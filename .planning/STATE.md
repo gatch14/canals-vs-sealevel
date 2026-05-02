@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: — Persistence, IA & Écologie Avancée
 status: in_progress
-last_updated: "2026-05-02T11:30:08.381Z"
+last_updated: "2026-05-02T12:00:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 9
-  total_plans: 27
+  total_plans: 30
   completed_plans: 27
-  percent: 100
+  percent: 90
 ---
 
 # STATE — Canal
@@ -25,8 +25,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 
 ## Current Status
 
-**Active phase**: Phase 10 — Impact Météorologique (next)
-**Status**: MILESTONE v2.0 IN PROGRESS — Phase 9 complete (3/3 plans), Phase 10 next
+**Active phase**: Phase 10 — Impact Météorologique (ready to execute)
+**Status**: MILESTONE v2.0 IN PROGRESS — Phase 10 planned (3/3 plans ready), awaiting execution
 
 ---
 
@@ -42,8 +42,8 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 | 6 | Dashboard Global | Complete (3/3 plans) |
 | 7 | Persistance Locale | Complete (3/3 plans) |
 | 8 | Candidats IA | Complete (3/3 plans) |
-| 9 | Eau Salée & Dessalement | Not started |
-| 10 | Impact Météorologique | Not started |
+| 9 | Eau Salée & Dessalement | Complete (3/3 plans) |
+| 10 | Impact Météorologique | Planned (3/3 plans ready) |
 
 ---
 
@@ -93,5 +93,5 @@ See: .planning/PROJECT.md (updated 2026-04-30)
 ## Session Continuity
 
 **Last updated**: 2026-05-02
-**Last action**: Phase 8 complète — CanalCandidate type + 25 candidates.json + useCandidates + loadCandidate + CandidatesPanel UI — 107/107 tests GREEN
-**Next action**: /gsd-plan-phase 9 — Eau Salée & Dessalement
+**Last action**: Phase 10 planifiée — meteorologyEngine.ts types+stubs+impl+UI en 3 plans TDD — vérification PASSED
+**Next action**: /gsd-execute-phase 10 — Impact Météorologique
