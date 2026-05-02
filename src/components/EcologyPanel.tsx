@@ -118,11 +118,11 @@ export function EcologyPanel() {
             </div>
           )}
 
-          {/* État 3 — canal + élévation mais aucune zone écologique */}
+          {/* État 3 — canal + élévation mais aucune intersection désertique/endorheïque */}
           {!noCanal && !noProfile && noImpact && (
             <div className="px-4 py-3">
               <p className="text-xs text-gray-500 italic leading-relaxed">
-                Aucune zone &eacute;cologique significative sur ce trac&eacute;
+                Aucune intersection d&eacute;sertique ni alerte endorhe&iuml;que sur ce trac&eacute;
               </p>
             </div>
           )}
@@ -300,7 +300,10 @@ export function EcologyPanel() {
                 <div className="flex flex-col gap-[2px]">
                   <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Refroidissement local</dt>
                   <dd className="text-[13px] font-semibold text-white">
-                    {formatInterval(meteorologyResult.coolingDeltaC, '°C', 2)}
+                    &minus;{formatInterval(
+                      [Math.abs(meteorologyResult.coolingDeltaC[1]), Math.abs(meteorologyResult.coolingDeltaC[0])],
+                      '°C', 2,
+                    )}
                   </dd>
                 </div>
 

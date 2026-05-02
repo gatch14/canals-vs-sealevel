@@ -71,19 +71,22 @@ export function calcInfluenceRadius(
 
 /**
  * Calcule les précipitations supplémentaires induites [min, max] mm/an.
- * 20–40% de l'évaporation retombe selon aridité.
+ * 20–40% de l'évaporation retombe sur la zone d'influence (aire km²).
+ * Conversion : km³ × fraction × 1e6 / influenceAreaKm2 → mm/an
  * UX-01 : intervalle [min, max].
  */
 export function calcInducedPrecipitation(
   evapKm3: Interval,
   aridityFactor: number,
+  influenceAreaKm2: number,
 ): Interval {
   if (evapKm3[0] === 0 && evapKm3[1] === 0) return [0, 0]
+  if (influenceAreaKm2 <= 0) return [0, 0]
   const pMin = 0.20 * (1 + aridityFactor)
   const pMax = 0.40 * (1 + aridityFactor)
   return [
-    evapKm3[0] * pMin * 1e6,
-    evapKm3[1] * pMax * 1e6,
+    (evapKm3[0] * pMin * 1e6) / influenceAreaKm2,
+    (evapKm3[1] * pMax * 1e6) / influenceAreaKm2,
   ]
 }
 
@@ -144,13 +147,15 @@ export function computeMeteorologyAnalysis(
 
   const aridityFactor = calcAridityFactor(params.points, desertFeatures)
   const surfaceKm2 = (params.widthM / 1000) * params.lengthKm
-
   const evaporationKm3 = calcEvaporation(surfaceKm2, aridityFactor)
+  const influenceRadiusKm = calcInfluenceRadius(params.lengthKm, aridityFactor)
+  const midRadius = (influenceRadiusKm[0] + influenceRadiusKm[1]) / 2
+  const influenceAreaKm2 = Math.PI * midRadius * midRadius
 
   return {
     evaporationKm3,
-    influenceRadiusKm: calcInfluenceRadius(params.lengthKm, aridityFactor),
-    precipitationMmY: calcInducedPrecipitation(evaporationKm3, aridityFactor),
+    influenceRadiusKm,
+    precipitationMmY: calcInducedPrecipitation(evaporationKm3, aridityFactor, influenceAreaKm2),
     coolingDeltaC: calcCoolingDelta(surfaceKm2, aridityFactor),
     weatherRisk: classifyWeatherRisk(params.lengthKm, aridityFactor),
   }

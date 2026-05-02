@@ -77,9 +77,19 @@ describe('calcInducedPrecipitation — précipitations induites mm/an (METEO-03)
     expect(result[1]).toBe(0)
   })
   it('retourne un intervalle positif avec max > min pour évaporation > 0', () => {
-    const result = calcInducedPrecipitation([0.1, 0.5], 1.0)
+    const result = calcInducedPrecipitation([0.1, 0.5], 1.0, 10000)
     expect(result[0]).toBeGreaterThan(0)
     expect(result[1]).toBeGreaterThan(result[0])
+  })
+  it("retourne [0, 0] pour influenceAreaKm2 <= 0", () => {
+    const result = calcInducedPrecipitation([0.1, 0.5], 1.0, 0)
+    expect(result[0]).toBe(0)
+    expect(result[1]).toBe(0)
+  })
+  it('retourne des précipitations dans un ordre de grandeur réaliste (< 2000 mm/an)', () => {
+    const influenceAreaKm2 = Math.PI * 120 * 120
+    const result = calcInducedPrecipitation([0.025, 0.1], 1.0, influenceAreaKm2)
+    expect(result[1]).toBeLessThan(2000)
   })
 })
 
@@ -119,6 +129,9 @@ describe('classifyWeatherRisk — indice de risque météorologique (METEO-05)',
   })
   it('retourne moderate pour canal exactement 500 km en zone semi-aride', () => {
     expect(classifyWeatherRisk(500, 0.7)).toBe('moderate')
+  })
+  it('retourne moderate pour canal exactement 1500 km en zone désertique (borne > 1500 exclusive)', () => {
+    expect(classifyWeatherRisk(1500, 1.0)).toBe('moderate')
   })
 })
 
