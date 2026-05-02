@@ -2,7 +2,7 @@
 
 **Version:** v3
 **Date:** 2026-05-02
-**Status:** Roadmap v3.0 traceability pending
+**Status:** Roadmap v3.0 complete
 
 ---
 
@@ -161,13 +161,13 @@
 | METEO-03 | Phase 10 | Complete |
 | METEO-04 | Phase 10 | Complete |
 | METEO-05 | Phase 10 | Complete |
-| CIRC-01 | Phase TBD | Pending |
-| CIRC-02 | Phase TBD | Pending |
-| CIRC-03 | Phase TBD | Pending |
-| CIRC-04 | Phase TBD | Pending |
-| VIE-01 | Phase TBD | Pending |
-| VIE-02 | Phase TBD | Pending |
-| ROI-01 | Phase TBD | Pending |
-| ROI-02 | Phase TBD | Pending |
-| ROI-03 | Phase TBD | Pending |
-| ROI-04 | Phase TBD | Pending |
+| CIRC-01 | Phase 11 | Pending |
+| CIRC-02 | Phase 11 | Pending |
+| CIRC-03 | Phase 11 | Pending |
+| CIRC-04 | Phase 11 | Pending |
+| VIE-01 | Phase 11 | Pending |
+| VIE-02 | Phase 11 | Pending |
+| ROI-01 | Phase 12 | Pending |
+| ROI-02 | Phase 12 | Pending |
+| ROI-03 | Phase 12 | Pending |
+| ROI-04 | Phase 12 | Pending |

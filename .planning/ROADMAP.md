@@ -2,7 +2,7 @@
 
 ## Overview
 
-10 phases | 31 requirements | App web scientifique 100% client-side pour étudier l'impact d'un réseau mondial de canaux sur la montée des eaux. Chaque phase délivre une capacité vérifiable qui débloque la suivante, en suivant l'ordre strict des dépendances architecturales (carte → élévation → routing → calculs → écologie → dashboard global → persistance → IA → dessalement → météo).
+13 phases | 41 requirements | App web scientifique 100% client-side pour étudier l'impact d'un réseau mondial de canaux sur la montée des eaux. Chaque phase délivre une capacité vérifiable qui débloque la suivante, en suivant l'ordre strict des dépendances architecturales (carte → élévation → routing → calculs → écologie → dashboard global → persistance → IA → dessalement → météo → économie circulaire → ROI → dashboard ROI).
 
 ---
 
@@ -17,12 +17,18 @@
 - [x] **Phase 5: Analyse Écologique** — Zones désertiques, verdissement, bassins endorheïques, risques climatiques
 - [x] **Phase 6: Dashboard Global** — ΔSL cumulé, scénarios et comparaison IPCC
 
-### Milestone v2.0 — Persistence, IA & Écologie Avancée
+### Milestone v2.0 — Persistence, IA & Écologie Avancée (Complete)
 
 - [x] **Phase 7: Persistance Locale** — Canaux et paramètres survivent au refresh via IndexedDB Dexie.js
 - [x] **Phase 8: Candidats IA** — Bibliothèque de canaux mondiaux pré-calculés chargeables en un clic
 - [x] **Phase 9: Eau Salée & Dessalement** — Impact contextuel eau salée + nœuds dessalement solaire
 - [x] **Phase 10: Impact Météorologique** — Évaporation, précipitations, refroidissement et indice de risque climatique
+
+### Milestone v3.0 — Économie Circulaire & ROI
+
+- [ ] **Phase 11: Moteur Économique Circulaire** — circularEngine.ts — production spiruline, aquaculture, engrais, surface agricole, durée de vie, habitabilité
+- [ ] **Phase 12: ROI & Break-even** — roiEngine.ts — valeur totale annuelle, ROI à 25/50/100 ans, break-even, comparaison multi-canaux
+- [ ] **Phase 13: Dashboard ROI** — Affichage UI de toute la chaîne de valeur économique et du break-even
 
 ---
 
@@ -193,6 +199,42 @@ Plans:
 - [ ] 10-T03-PLAN.md — useMeteorology hook + MeteorologySection dans EcologyPanel.tsx (Wave 2)
 **UI hint**: yes
 
+### Phase 11: Moteur Économique Circulaire
+**Goal**: Le moteur peut calculer toute la chaîne de co-produits du bassin terminal — production alimentaire, minéraux extractibles, surface agricole créée, durée de vie du canal et timeline habitabilité
+**Depends on**: Phase 9
+**Requirements**: CIRC-01, CIRC-02, CIRC-03, CIRC-04, VIE-01, VIE-02
+**Success Criteria**:
+1. Pour un canal donné avec dessalement actif, le moteur retourne la production annuelle de spiruline (tonnes/an + €/an) en intervalle [min, max] depuis le bassin terminal
+2. Le moteur retourne la production d'aquaculture marine (tonnes protéines/an + €/an) calculée selon la superficie et la salinité du bassin terminal
+3. Le moteur retourne les tonnes extractibles de magnésium, potassium et calcium (+ €/an) depuis la saumure concentrée, en intervalle [min, max]
+4. Le moteur retourne la surface agricole potentielle (km² cultivables) créée par la combinaison eau douce dessalée + engrais locaux disponibles
+5. Le moteur retourne la durée de vie estimée du canal (années avant entretien majeur) selon le type de terrain et la concentration minérale de l'eau
+6. Le moteur retourne la timeline habitabilité (années avant que la zone devienne habitable et exploitable agricolement) en intervalle [min, max]
+**Plans**: TBD
+
+### Phase 12: ROI & Break-even
+**Goal**: Le moteur peut calculer la rentabilité complète d'un canal — valeur économique totale annuelle, ROI projeté sur plusieurs décennies, seuil de rentabilité et comparaison multi-canaux
+**Depends on**: Phase 11
+**Requirements**: ROI-01, ROI-02, ROI-03, ROI-04
+**Success Criteria**:
+1. Le moteur agrège tous les co-produits (eau dessalée, sel, spiruline, aquaculture, engrais) en une valeur économique totale annuelle (€/an) affichée comme intervalle [min, max]
+2. Le moteur calcule le ROI cumulé projeté à 25, 50 et 100 ans en comparant l'investissement initial (coût construction + dessalement) aux revenus cumulés
+3. Le moteur calcule le break-even en années — le nombre d'années avant que les revenus cumulés remboursent le coût de construction initial
+4. L'utilisateur peut comparer côte à côte le ROI de plusieurs canaux tracés dans un tableau récapitulatif trié par break-even croissant
+**Plans**: TBD
+
+### Phase 13: Dashboard ROI
+**Goal**: L'utilisateur peut visualiser la chaîne de valeur économique complète d'un canal et évaluer sa rentabilité directement depuis le panneau latéral
+**Depends on**: Phase 12
+**Requirements**: (UI for CIRC-01, CIRC-02, CIRC-03, CIRC-04, VIE-01, VIE-02, ROI-01, ROI-02, ROI-03, ROI-04)
+**Success Criteria**:
+1. L'utilisateur voit un panneau économique affichant la production spiruline, aquaculture et engrais avec leurs valeurs €/an en intervalles [min, max]
+2. L'utilisateur voit la surface agricole créée (km²), la durée de vie du canal et la timeline habitabilité sur le même panneau
+3. L'utilisateur voit la valeur économique totale annuelle et le break-even (années) mis en évidence comme indicateurs clés
+4. L'utilisateur peut accéder à un tableau comparatif ROI affichant tous ses canaux triés par break-even
+**Plans**: TBD
+**UI hint**: yes
+
 ---
 
 ## Progress Table
@@ -209,6 +251,9 @@ Plans:
 | 8. Candidats IA | 3/3 | Complete | 2026-05-02 |
 | 9. Eau Salée & Dessalement | 3/3 | Complete | 2026-05-02 |
 | 10. Impact Météorologique | 0/TBD | Not started | - |
+| 11. Moteur Économique Circulaire | 0/TBD | Not started | - |
+| 12. ROI & Break-even | 0/TBD | Not started | - |
+| 13. Dashboard ROI | 0/TBD | Not started | - |
 
 ---
 
@@ -251,5 +296,15 @@ Plans:
 | METEO-03 | Phase 10 |
 | METEO-04 | Phase 10 |
 | METEO-05 | Phase 10 |
+| CIRC-01 | Phase 11 |
+| CIRC-02 | Phase 11 |
+| CIRC-03 | Phase 11 |
+| CIRC-04 | Phase 11 |
+| VIE-01 | Phase 11 |
+| VIE-02 | Phase 11 |
+| ROI-01 | Phase 12 |
+| ROI-02 | Phase 12 |
+| ROI-03 | Phase 12 |
+| ROI-04 | Phase 12 |
 
-**Coverage: 31/31 requirements mapped.**
+**Coverage: 46/46 requirements mapped.**
