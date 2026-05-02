@@ -5,6 +5,7 @@ import type { ElevationProfile } from '../types/elevation'
 import type { RoutingState } from '../types/routing'
 import type { CalcParams } from '../types/calculation'
 import { DEFAULT_CALC_PARAMS } from '../types/calculation'
+import type { CanalCandidate } from '../types/candidate'
 
 interface CanalStore {
   // State
@@ -46,6 +47,9 @@ interface CanalStore {
   // Persistance — Phase 7
   clearAll: () => void
   hydrateCanals: (canals: Canal[]) => void
+
+  // Candidats IA — Phase 8
+  loadCandidate: (candidate: CanalCandidate) => void
 }
 
 export const useCanalStore = create<CanalStore>()((set, get) => ({
@@ -159,4 +163,18 @@ export const useCanalStore = create<CanalStore>()((set, get) => ({
   }),
 
   hydrateCanals: (canals) => set({ canals }),
+
+  loadCandidate: (candidate) => {
+    const newCanal: Canal = {
+      id: crypto.randomUUID(),
+      points: candidate.points,
+      name: candidate.name,
+      createdAt: Date.now(),
+      isRouted: false,
+    }
+    set((state) => ({
+      canals: [...state.canals, newCanal],
+      selectedCanalId: newCanal.id,
+    }))
+  },
 }))
