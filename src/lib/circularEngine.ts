@@ -1,103 +1,181 @@
 // src/lib/circularEngine.ts
 // Moteur économique circulaire Phase 11 — pur TypeScript, sans React, sans Zustand.
 // Même pattern que desalinationEngine.ts : fonctions pures, intervalles [min, max].
-// Wave 0 : stubs retournant [0,0] / null — implémentation en Wave 1 (T02).
+// Wave 1 : implémentation complète (T02).
 import type { FeatureCollection } from 'geojson'
 import type { Interval } from '../types/calculation'
 import type { CircularParams, CircularResult } from '../types/circular'
+import { calcAridityFactor } from './meteorologyEngine'
+
+// ─── Constantes scientifiques locked (CONTEXT.md) ────────────────────────────
+
+const SPIRULINE_YIELD_MIN = 10
+const SPIRULINE_YIELD_MAX = 20
+const SPIRULINE_BASIN_FRACTION = 0.10
+const SPIRULINE_PRICE_MIN = 5_000
+const SPIRULINE_PRICE_MAX = 20_000
+
+const AQUACULTURE_YIELD_MIN = 2
+const AQUACULTURE_YIELD_MAX = 8
+const AQUACULTURE_BASIN_FRACTION = 0.30
+const AQUACULTURE_PRICE_MIN = 2_000
+const AQUACULTURE_PRICE_MAX = 8_000
+
+const BRINE_SALT_CONCENTRATION = 35
+const MG_FRACTION = 0.0013
+const K_FRACTION  = 0.0004
+const CA_FRACTION = 0.0004
+const MG_PRICE = 200
+const K_PRICE  = 300
+const CA_PRICE = 100
+
+// NOTE: 2_000 m³/km²/an = heuristique d'impact (non agronomique)
+const ARABLE_WATER_REQ = 2_000
+
+const LIFESPAN_MIN_BASE = 20
+const LIFESPAN_MAX_BASE = 50
+const LIFESPAN_DESERT_FACTOR = 1.3
+const LIFESPAN_HUMID_FACTOR  = 1.0
+
+const HABITABILITY_WITH_RESOURCES: Interval = [5, 20]
+const HABITABILITY_WITHOUT: Interval = [20, 50]
 
 // ─── CIRC-01 : Production spiruline ──────────────────────────────────────────
-
-/**
- * Calcule la production de spiruline et sa valeur économique.
- * Base : surfaces en bassins peu profonds (~10 cm) dans les zones habitables.
- * Stub Wave 0 — retourne toujours [0,0].
- */
 export function calcSpirulineProduction(
   habitableZones: Interval,
   _solarFactor: number,
 ): { tonnes: Interval; value: Interval } {
-  return { tonnes: [0, 0], value: [0, 0] }
+  if (habitableZones[0] === 0 && habitableZones[1] === 0) {
+    return { tonnes: [0, 0], value: [0, 0] }
+  }
+
+  const surfaceHaMin = habitableZones[0] * 100 * SPIRULINE_BASIN_FRACTION
+  const surfaceHaMax = habitableZones[1] * 100 * SPIRULINE_BASIN_FRACTION
+
+  const tonnesMin = surfaceHaMin * SPIRULINE_YIELD_MIN
+  const tonnesMax = surfaceHaMax * SPIRULINE_YIELD_MAX
+
+  return {
+    tonnes: [tonnesMin, tonnesMax],
+    value: [tonnesMin * SPIRULINE_PRICE_MIN, tonnesMax * SPIRULINE_PRICE_MAX],
+  }
 }
 
-// ─── CIRC-02 : Aquaculture ────────────────────────────────────────────────────
-
-/**
- * Calcule la production aquacole (poissons, crevettes) et sa valeur économique.
- * Base : cages flottantes sur le canal dans les zones habitables.
- * Stub Wave 0 — retourne toujours [0,0].
- */
+// ─── CIRC-02 : Production aquaculture ────────────────────────────────────────
 export function calcAquacultureProduction(
   habitableZones: Interval,
 ): { tonnes: Interval; value: Interval } {
-  return { tonnes: [0, 0], value: [0, 0] }
+  if (habitableZones[0] === 0 && habitableZones[1] === 0) {
+    return { tonnes: [0, 0], value: [0, 0] }
+  }
+
+  const surfaceMin = habitableZones[0] * AQUACULTURE_BASIN_FRACTION
+  const surfaceMax = habitableZones[1] * AQUACULTURE_BASIN_FRACTION
+
+  const tonnesMin = surfaceMin * AQUACULTURE_YIELD_MIN
+  const tonnesMax = surfaceMax * AQUACULTURE_YIELD_MAX
+
+  return {
+    tonnes: [tonnesMin, tonnesMax],
+    value: [tonnesMin * AQUACULTURE_PRICE_MIN, tonnesMax * AQUACULTURE_PRICE_MAX],
+  }
 }
 
-// ─── CIRC-03 : Extraction minérale ───────────────────────────────────────────
-
-/**
- * Calcule l'extraction de minéraux (Mg, K, Ca) issus des saumures de dessalement.
- * Concentrations océaniques : Mg = 0.13%, K = 0.04%, Ca = 0.04%.
- * waterProductionMinDaily en m³/jour (plancher de la fourchette).
- * Stub Wave 0 — retourne toujours [0,0].
- */
+// ─── CIRC-03 : Extraction minéraux/engrais ────────────────────────────────────
 export function calcMineralExtraction(
   waterProductionMinDaily: number,
   _solarFactor: number,
 ): { mgTonnes: Interval; kTonnes: Interval; caTonnes: Interval; value: Interval } {
-  return { mgTonnes: [0, 0], kTonnes: [0, 0], caTonnes: [0, 0], value: [0, 0] }
+  if (waterProductionMinDaily === 0) {
+    return { mgTonnes: [0, 0], kTonnes: [0, 0], caTonnes: [0, 0], value: [0, 0] }
+  }
+
+  const saltMassKgMin = waterProductionMinDaily * 365 * BRINE_SALT_CONCENTRATION
+  const saltMassKgMax = saltMassKgMin * 1.2
+
+  const mgMin = (saltMassKgMin * MG_FRACTION) / 1000
+  const mgMax = (saltMassKgMax * MG_FRACTION) / 1000
+  const kMin  = (saltMassKgMin * K_FRACTION) / 1000
+  const kMax  = (saltMassKgMax * K_FRACTION) / 1000
+  const caMin = (saltMassKgMin * CA_FRACTION) / 1000
+  const caMax = (saltMassKgMax * CA_FRACTION) / 1000
+
+  const valueMin = mgMin * MG_PRICE + kMin * K_PRICE + caMin * CA_PRICE
+  const valueMax = mgMax * MG_PRICE + kMax * K_PRICE + caMax * CA_PRICE
+
+  return {
+    mgTonnes: [mgMin, mgMax],
+    kTonnes:  [kMin, kMax],
+    caTonnes: [caMin, caMax],
+    value: [valueMin, valueMax],
+  }
 }
 
-// ─── CIRC-04 : Terres arables ─────────────────────────────────────────────────
-
-/**
- * Calcule la superficie de terres arables créées par irrigation depuis le canal.
- * Base : 1 m³/jour irrigue 3 m² (heuristique désert aride).
- * Stub Wave 0 — retourne toujours [0,0].
- */
+// ─── CIRC-04 : Surface agricole potentielle ───────────────────────────────────
 export function calcArableLand(waterProductionMinDaily: number): Interval {
-  return [0, 0]
+  if (waterProductionMinDaily === 0) return [0, 0]
+
+  const base = (waterProductionMinDaily * 365) / ARABLE_WATER_REQ
+  return [base * 0.7, base * 1.3]
 }
 
-// ─── CIRC-05 : Durée de vie ───────────────────────────────────────────────────
-
-/**
- * Calcule la durée de vie estimée du canal en années.
- * Dépend de la longueur et du facteur d'aridité (zones désertiques = moins d'érosion).
- * aridityFactor : 1.0 pour désert, 0.4 pour zone humide.
- * Stub Wave 0 — retourne toujours [0,0].
- */
+// ─── VIE-01 : Durée de vie estimée ────────────────────────────────────────────
 export function calcLifespan(
-  lengthKm: number,
+  _lengthKm: number,
   aridityFactor: number,
 ): Interval {
-  return [0, 0]
+  const factor =
+    aridityFactor >= 1.0 ? LIFESPAN_DESERT_FACTOR :
+    aridityFactor < 0.5  ? LIFESPAN_HUMID_FACTOR  :
+    1.0
+
+  return [
+    LIFESPAN_MIN_BASE * factor,
+    LIFESPAN_MAX_BASE * factor,
+  ]
 }
 
-// ─── CIRC-06 : Timeline habitabilité ─────────────────────────────────────────
-
-/**
- * Calcule le délai avant que les zones autour du canal deviennent habitables.
- * Dépend de la disponibilité en eau et de la valeur économique des minéraux.
- * Stub Wave 0 — retourne toujours [0,0].
- */
+// ─── VIE-02 : Timeline habitabilité ──────────────────────────────────────────
 export function calcHabitabilityTimeline(
   waterProductionMin: Interval,
   mineralsValue: Interval,
 ): Interval {
-  return [0, 0]
+  const hasWater    = waterProductionMin[0] > 0
+  const hasMinerals = mineralsValue[0] > 0
+
+  return hasWater && hasMinerals
+    ? [...HABITABILITY_WITH_RESOURCES]
+    : [...HABITABILITY_WITHOUT]
 }
 
 // ─── Orchestrateur principal ──────────────────────────────────────────────────
-
-/**
- * Calcule le résultat complet de l'analyse économique circulaire pour un canal.
- * Retourne null si nodes === 0 (pas de nœuds de dessalement = pas d'économie circulaire).
- * Stub Wave 0 — retourne toujours null.
- */
 export function computeCircularAnalysis(
   params: CircularParams,
-  _desertFeatures: FeatureCollection,
+  desertFeatures: FeatureCollection,
 ): CircularResult | null {
-  return null
+  if (params.nodes === 0) return null
+
+  const aridityFactor = calcAridityFactor(params.points, desertFeatures)
+  const solarFactor = params.points.every(([_lng, lat]) => Math.abs(lat) < 35) ? 1.0 : 0.7
+
+  const spiruline    = calcSpirulineProduction(params.habitableZones, solarFactor)
+  const aquaculture  = calcAquacultureProduction(params.habitableZones)
+  const minerals     = calcMineralExtraction(params.waterProduction[0], solarFactor)
+  const arableLand   = calcArableLand(params.waterProduction[0])
+  const lifespan     = calcLifespan(params.lengthKm, aridityFactor)
+  const habitability = calcHabitabilityTimeline(params.waterProduction, minerals.value)
+
+  return {
+    spirulineTonnes:    spiruline.tonnes,
+    spirulineValue:     spiruline.value,
+    aquacultureTonnes:  aquaculture.tonnes,
+    aquacultureValue:   aquaculture.value,
+    mgTonnes:           minerals.mgTonnes,
+    kTonnes:            minerals.kTonnes,
+    caTonnes:           minerals.caTonnes,
+    mineralsValue:      minerals.value,
+    arableLandKm2:      arableLand,
+    lifespanYears:      lifespan,
+    habitabilityYears:  habitability,
+  }
 }
