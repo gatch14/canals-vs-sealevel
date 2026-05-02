@@ -140,25 +140,25 @@ describe('calcWaterProduction — m³/jour (DESAL-02)', () => {
 
 describe('calcSaltValue — €/an (DESAL-03)', () => {
   it('retourne [0, 0] pour 0 nœuds', () => {
-    const result = calcSaltValue(0, 500)
+    const result = calcSaltValue(0, 1.0)
     expect(result[0]).toBe(0)
     expect(result[1]).toBe(0)
   })
 
   it('retourne un intervalle positif [min > 0, max > min] pour 2 nœuds', () => {
-    const result = calcSaltValue(2, 1000)
+    const result = calcSaltValue(2, 1.0)
     expect(result[0]).toBeGreaterThan(0)
     expect(result[1]).toBeGreaterThan(result[0])
   })
 
   it('augmente avec le nombre de nœuds', () => {
-    const result2 = calcSaltValue(2, 1000)
-    const result4 = calcSaltValue(4, 2000)
+    const result2 = calcSaltValue(2, 1.0)
+    const result4 = calcSaltValue(4, 1.0)
     expect(result4[0]).toBeGreaterThan(result2[0])
   })
 
   it('produit un ratio max/min cohérent (prix marché NaCl × 3 min)', () => {
-    const result = calcSaltValue(2, 1000)
+    const result = calcSaltValue(2, 1.0)
     const ratio = result[1] / result[0]
     expect(ratio).toBeGreaterThan(1.5)
     expect(ratio).toBeLessThan(5.0)

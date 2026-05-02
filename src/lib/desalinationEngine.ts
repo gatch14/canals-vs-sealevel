@@ -83,10 +83,10 @@ export function calcWaterProduction(
  */
 export function calcSaltValue(
   nodes: number,
-  _lengthKm: number,
+  solarFactor: number,
 ): Interval {
   if (nodes === 0) return [0, 0]
-  const dailyFlowMin = nodes * 10_000 * 0.8  // m³/jour (débit plancher)
+  const dailyFlowMin = nodes * 10_000 * solarFactor * 0.8  // m³/jour (débit plancher, cohérent avec calcWaterProduction)
   const annualVolume = dailyFlowMin * 365     // m³/an
   const saltMassKg = annualVolume * 35        // kg (35 kg/m³ = salinité océanique)
   return [saltMassKg * 0.05, saltMassKg * 0.15]  // €/an
@@ -132,7 +132,7 @@ export function computeDesalinationAnalysis(
   return {
     nodes,
     waterProduction: calcWaterProduction(nodes, params.solarFactor),
-    saltValue: calcSaltValue(nodes, params.lengthKm),
+    saltValue: calcSaltValue(nodes, params.solarFactor),
     habitableZones: calcHabitableZones(nodes),
     desalinationCost: calcDesalinationCost(nodes),
     ecosystemImpact: classifyEcosystem(params.points, desertFeatures),
