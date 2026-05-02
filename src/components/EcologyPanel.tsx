@@ -1,10 +1,12 @@
 // src/components/EcologyPanel.tsx
 // Accordéon Phase 5 — analyse écologique ECO-01 à ECO-04 (6 états)
+// Étendu Phase 9 — alerte eau salée ECO-05 + section dessalement (DESAL-01 à DESAL-05)
 // Pattern dupliqué de CalculationPanel.tsx — même structure, mêmes classes Tailwind.
 import { useState, useEffect } from 'react'
 import { ChevronDown, AlertCircle } from 'lucide-react'
 import { useCanalStore } from '../store/canalStore'
 import { useEcology } from '../hooks/useEcology'
+import { useDesalination } from '../hooks/useDesalination'
 import type { Interval } from '../types/calculation'
 
 // ─── Helpers de formatage UX-01 ──────────────────────────────────────────────
@@ -35,6 +37,10 @@ export function EcologyPanel() {
   const selectedCanalId = useCanalStore((s) => s.selectedCanalId)
   const canals = useCanalStore((s) => s.canals)
   const ecologyResult = useEcology()
+
+  const desalinationEnabled = useCanalStore((s) => s.desalinationEnabled)
+  const toggleDesalination = useCanalStore((s) => s.toggleDesalination)
+  const desalinationResult = useDesalination()
 
   const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
 
@@ -172,6 +178,94 @@ export function EcologyPanel() {
                 </div>
               )}
             </>
+          )}
+          {/* Alerte eau salée critique (ECO-05) — s'affiche indépendamment du toggle */}
+          {!noCanal && !noProfile && desalinationResult?.ecosystemImpact === 'critical' && (
+            <div
+              role="alert"
+              className="border-t border-white/[0.06] mt-2 pt-2 px-4 pb-3 flex flex-col gap-1"
+            >
+              <p className="text-[11px] text-red-400 font-semibold uppercase tracking-wider flex items-center gap-1">
+                <AlertCircle size={12} className="shrink-0" />
+                Alerte &mdash; Eau sal&eacute;e (ECO-05)
+              </p>
+              <p className="text-[12px] text-red-300 leading-relaxed">
+                Le canal traverse une zone agricole ou un cours d&apos;eau &mdash; risque de contamination saline irr&eacute;versible
+              </p>
+            </div>
+          )}
+
+          {/* Toggle dessalement + section résultats (DESAL-01 à DESAL-05) */}
+          {!noCanal && !noProfile && (
+            <div className="border-t border-white/[0.06] mt-2 pt-2 px-4 pb-3 flex flex-col gap-2">
+              {/* Toggle */}
+              <button
+                onClick={toggleDesalination}
+                className="flex items-center gap-2 text-left focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900 outline-none rounded"
+                aria-pressed={desalinationEnabled}
+              >
+                <span
+                  className={`w-8 h-4 rounded-full transition-colors duration-200 relative shrink-0 ${
+                    desalinationEnabled ? 'bg-blue-500' : 'bg-white/20'
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white transition-transform duration-200 ${
+                      desalinationEnabled ? 'translate-x-4' : 'translate-x-0'
+                    }`}
+                  />
+                </span>
+                <span className="text-[11px] text-gray-400 uppercase tracking-wider">
+                  N&oelig;uds dessalement solaire
+                </span>
+              </button>
+
+              {/* Section résultats — visible uniquement si toggle activé ET résultat disponible */}
+              {desalinationEnabled && desalinationResult && desalinationResult.nodes > 0 && (
+                <dl className="flex flex-col gap-1 mt-1">
+                  <div className="flex flex-col gap-[2px]">
+                    <dt className="text-[11px] text-gray-500 uppercase tracking-wider">
+                      N&oelig;uds ({desalinationResult.nodes})
+                    </dt>
+                    <dd className="text-[13px] font-semibold text-white">
+                      {formatInterval(desalinationResult.waterProduction, 'm³/jour', 0)}
+                    </dd>
+                  </div>
+
+                  <div className="flex flex-col gap-[2px]">
+                    <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Valeur sels r&eacute;cup&eacute;r&eacute;s</dt>
+                    <dd className="text-[13px] font-semibold text-white">
+                      {formatInterval(desalinationResult.saltValue, '€/an', 0)}
+                    </dd>
+                  </div>
+
+                  <div className="flex flex-col gap-[2px]">
+                    <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Zones habitables cr&eacute;&eacute;es</dt>
+                    <dd className="text-[13px] font-semibold text-white">
+                      {formatInterval(desalinationResult.habitableZones, 'km²', 0)}
+                    </dd>
+                  </div>
+
+                  <div className="flex flex-col gap-[2px]">
+                    <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Co&ucirc;t infrastructure</dt>
+                    <dd className="text-[13px] font-semibold text-amber-300">
+                      {formatInterval(
+                        [desalinationResult.desalinationCost[0] / 1_000_000, desalinationResult.desalinationCost[1] / 1_000_000],
+                        'M€',
+                        0,
+                      )}
+                    </dd>
+                  </div>
+                </dl>
+              )}
+
+              {/* Message si toggle activé mais canal trop court pour un nœud */}
+              {desalinationEnabled && desalinationResult && desalinationResult.nodes === 0 && (
+                <p className="text-[11px] text-gray-500 italic">
+                  Canal trop court pour un n&oelig;ud (minimum 500 km)
+                </p>
+              )}
+            </div>
           )}
         </div>
       )}
