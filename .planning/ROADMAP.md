@@ -242,6 +242,7 @@ Plans:
 
 Plans:
 - [x] 13-01-PLAN.md — EconomicPanel.tsx — accordéon Économie & ROI (4 états, co-produits, ROI, tableau comparatif) + intégration SidePanel
+- [x] 13-02-PLAN.md — Vérification intégration SidePanel.tsx (import + JSX EconomicPanel à la position finale)
 
 ---
 
@@ -261,7 +262,7 @@ Plans:
 | 10. Impact Météorologique | 0/TBD | Not started | - |
 | 11. Moteur Économique Circulaire | 0/3 | In progress | - |
 | 12. ROI & Break-even | 0/TBD | Not started | - |
-| 13. Dashboard ROI | 1/1 | Complete | 2026-05-02 |
+| 13. Dashboard ROI | 2/2 | Complete | 2026-05-02 |
 
 ---
 
