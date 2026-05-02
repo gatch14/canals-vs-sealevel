@@ -1,7 +1,9 @@
 // src/lib/desalinationEngine.ts
 // Moteur de dessalement Phase 9 — pur TypeScript, sans React, sans Zustand.
-// Wave 0 : stubs RED — T02 implémente les fonctions pour faire passer les tests GREEN.
+// Même pattern qu'ecologyEngine.ts : fonctions pures, intervalles [min, max], Turf.js.
+import { booleanIntersects, lineString } from '@turf/turf'
 import type { FeatureCollection } from 'geojson'
+import desertZones from '../data/desertZones.geojson'
 import type { Coord } from '../types/canal'
 import type { Interval } from '../types/calculation'
 import type { DesalinationParams, DesalinationResult, EcosystemImpactLevel } from '../types/desalination'
@@ -11,13 +13,23 @@ import type { DesalinationParams, DesalinationResult, EcosystemImpactLevel } fro
 /**
  * Classifie le niveau d'impact de l'eau salée selon l'écosystème traversé.
  * - Réutilise desertZones.geojson pour détecter les zones désertiques (low)
- * - Heuristique Turf.js pour cours d'eau/zones agricoles (critical)
- * STUB — retourne 'neutral' en attendant T02
+ * - Si aucune intersection avec un désert → retourne 'neutral'
+ * - Note : 'critical' est réservé pour cours d'eau/zones agricoles (déféré CONTEXT.md)
  */
 export function classifyEcosystem(
-  _points: Coord[],
-  _desertFeatures: FeatureCollection,
+  points: Coord[],
+  desertFeatures: FeatureCollection,
 ): EcosystemImpactLevel {
+  if (points.length < 2) return 'neutral'
+
+  const line = lineString(points)
+
+  for (const feature of desertFeatures.features) {
+    if (booleanIntersects(line, feature)) {
+      return 'low'
+    }
+  }
+
   return 'neutral'
 }
 
@@ -26,80 +38,89 @@ export function classifyEcosystem(
 /**
  * Calcule le nombre de nœuds de dessalement solaires = floor(lengthKm / 500).
  * 1 nœud par tranche de 500 km (D-01 CONTEXT.md).
- * STUB — retourne 0 en attendant T02
  */
-export function calcDesalinationNodes(_lengthKm: number): number {
-  return 0
+export function calcDesalinationNodes(lengthKm: number): number {
+  return Math.floor(lengthKm / 500)
 }
 
 // ─── DESAL-01+02 : Facteur solaire ────────────────────────────────────────────
 
 /**
  * Heuristique latitude → facteur solaire.
- * < 35°N/S (zones tropicales/désertiques) = 1.0 (fort ensoleillement)
- * >= 35°N/S (zones tempérées) = 0.7
- * STUB — retourne 1.0 en attendant T02
+ * Si TOUS les points ont abs(lat) < 35 → 1.0 (fort ensoleillement, zones tropicales)
+ * Sinon → 0.7 (conservateur dès qu'un point sort des tropiques)
+ * Coord = [lng, lat], index 1 = latitude.
  */
-export function calcSolarFactor(_points: Coord[]): number {
-  return 1.0
+export function calcSolarFactor(points: Coord[]): number {
+  const allTropical = points.every(([_lng, lat]) => Math.abs(lat) < 35)
+  return allTropical ? 1.0 : 0.7
 }
 
 // ─── DESAL-02 : Production eau douce ─────────────────────────────────────────
 
 /**
  * Calcule la production d'eau douce [min, max] m³/jour.
- * Base : 10 000 m³/jour par nœud × solarFactor, fourchette ±20%.
- * STUB — retourne [0, 0] en attendant T02
+ * Base : 10 000 m³/jour par nœud × solarFactor, fourchette ±20% (UX-01).
+ * Retourne [nodes × 10_000 × solarFactor × 0.8, nodes × 10_000 × solarFactor × 1.2]
  */
 export function calcWaterProduction(
-  _nodes: number,
-  _solarFactor: number,
+  nodes: number,
+  solarFactor: number,
 ): Interval {
-  return [0, 0]
+  if (nodes === 0) return [0, 0]
+  const base = nodes * 10_000 * solarFactor
+  return [base * 0.8, base * 1.2]
 }
 
 // ─── DESAL-03 : Valeur économique des sels ────────────────────────────────────
 
 /**
  * Calcule la valeur économique des sels et minéraux [min, max] €/an.
- * Base : salinité 35 g/L × débit annuel × prix NaCl marché (0.05–0.15 €/kg).
- * Fourchette pilotée par prix marché min/max.
- * STUB — retourne [0, 0] en attendant T02
+ * Débit plancher = nodes × 10_000 × 0.8 m³/jour
+ * Volume annuel = débit × 365 m³/an
+ * Masse sel = volume × 35 kg/m³ (salinité océanique)
+ * Prix NaCl marché : min = 0.05 €/kg, max = 0.15 €/kg
  */
 export function calcSaltValue(
-  _nodes: number,
+  nodes: number,
   _lengthKm: number,
 ): Interval {
-  return [0, 0]
+  if (nodes === 0) return [0, 0]
+  const dailyFlowMin = nodes * 10_000 * 0.8  // m³/jour (débit plancher)
+  const annualVolume = dailyFlowMin * 365     // m³/an
+  const saltMassKg = annualVolume * 35        // kg (35 kg/m³ = salinité océanique)
+  return [saltMassKg * 0.05, saltMassKg * 0.15]  // €/an
 }
 
 // ─── DESAL-04 : Zones habitables ─────────────────────────────────────────────
 
 /**
  * Calcule la superficie de zones habitables potentielles [min, max] km².
- * Base : 500 km² par nœud (rayon ~12.6 km), fourchette ±30%.
- * STUB — retourne [0, 0] en attendant T02
+ * Base : 500 km² par nœud (rayon ~12.6 km), fourchette ±30% (UX-01).
  */
-export function calcHabitableZones(_nodes: number): Interval {
-  return [0, 0]
+export function calcHabitableZones(nodes: number): Interval {
+  if (nodes === 0) return [0, 0]
+  const base = nodes * 500
+  return [base * 0.7, base * 1.3]
 }
 
 // ─── DESAL-05 : Coût infrastructure ──────────────────────────────────────────
 
 /**
  * Calcule le coût d'infrastructure dessalement [min, max] €.
- * Base : 50 M€ à 150 M€ par nœud (D-01 CONTEXT.md).
- * STUB — retourne [0, 0] en attendant T02
+ * Base : 50 M€ à 150 M€ par nœud (D-01 CONTEXT.md, fourchette locked).
  */
-export function calcDesalinationCost(_nodes: number): Interval {
-  return [0, 0]
+export function calcDesalinationCost(nodes: number): Interval {
+  if (nodes === 0) return [0, 0]
+  return [nodes * 50_000_000, nodes * 150_000_000]
 }
 
 // ─── Orchestrateur principal ──────────────────────────────────────────────────
 
 /**
  * Calcule le résultat complet de l'analyse dessalement pour un canal.
- * STUB — retourne null si < 2 points, sinon résultat avec valeurs placeholder.
+ * Retourne null si moins de 2 points.
+ * Utilise solarFactor fourni dans params (pre-calculé ou calculé en interne).
  */
 export function computeDesalinationAnalysis(
   params: DesalinationParams,
