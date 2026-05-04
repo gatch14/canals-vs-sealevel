@@ -312,6 +312,9 @@ export function EcologyPanel() {
                   <dd className={`text-[13px] font-semibold ${WEATHER_RISK_COLORS[meteorologyResult.weatherRisk]}`}>
                     {WEATHER_RISK_LABELS[meteorologyResult.weatherRisk]}
                   </dd>
+                  <dd className="text-[11px] text-gray-500 italic">
+                    Gradient de pression atmosph&eacute;rique induit en zone aride
+                  </dd>
                 </div>
               </dl>
             </div>
