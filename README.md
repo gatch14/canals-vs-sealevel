@@ -2,7 +2,7 @@
 
 A scientific web app exploring whether a global network of canals could counter rising sea levels.
 
-Draw canals on a world map, calculate their real impact on ocean levels, analyze ecological effects, and compare the results against IPCC 2100 projections — all running locally in your browser, no server required.
+Draw canals on a world map, calculate their real impact on ocean levels, analyze ecological and economic effects, and compare the results against IPCC 2100 projections — all running locally in your browser, no server required.
 
 ![Canal tracing with elevation profile and impact calculation](https://raw.githubusercontent.com/gatch14/canals-vs-sealevel/master/docs/screenshot.png)
 
@@ -60,13 +60,47 @@ All values are displayed as **[min – max] intervals**, never as false-precisio
 ### Ecological Analysis
 - Desert zones crossed: estimated greening area (km²) and timeline (years)
 - Endorheic basin alert: if the canal ends in a closed basin (no ocean outlet), a salinization risk warning is shown — this is irreversible, like what happened to the Aral Sea
-- Climate risk flag: introducing water into hot arid zones creates atmospheric pressure gradients that may generate local weather events
+- Salt water impact: differentiated risk assessment by ecosystem type (arid desert vs. agricultural zones vs. freshwater courses)
+- Climate risk: introducing water into hot arid zones creates atmospheric pressure gradients that may generate local weather events
 
 ### Global Dashboard
 With multiple canals drawn:
 - **Cumulative ΔSL** across all canals
 - **Three scenarios**: optimistic (100% water retained), realistic (60%), pessimistic (30%)
 - **IPCC comparison chart**: your canals' realistic impact vs IPCC AR6 2021 projected sea-level rise (300–1000 mm by 2100)
+
+### Local Persistence
+All canals and calculation parameters are saved in your browser's IndexedDB (via Dexie.js). Close the tab, reopen it — everything is restored. Clear all data at any time from the interface.
+
+### Pre-computed Canal Candidates
+A built-in library of 25+ globally optimized canal candidates, ranked by estimated ΔSL impact. Load any candidate onto the map in one click — all calculations apply automatically.
+
+### Solar Desalination Nodes
+Activate desalination nodes along a canal to simulate solar-powered freshwater production:
+- **Freshwater produced** (m³/day)
+- **Recovered salt & mineral value** (€/year)
+- **Habitable zones created** (km²)
+- **Infrastructure cost** (M€)
+
+### Meteorological Impact
+Long-term climate effects of introducing water into arid regions:
+- Annual evaporation volume (km³/year)
+- Estimated climate influence radius (km)
+- Induced precipitation (mm/year)
+- Local cooling by evapotranspiration (°C)
+- Weather risk index (Low / Moderate / High) — atmospheric pressure gradients induced in arid zones
+
+### Circular Economy & ROI
+Full economic chain from a terminal basin with active desalination:
+- **Spirulina production** (tonnes/year + €/year)
+- **Aquaculture** (protein tonnes/year + €/year)
+- **Mineral extraction** — Mg, K, Ca (tonnes/year + €/year)
+- **Arable land created** (km²)
+- **Canal lifespan** (years before major maintenance)
+- **Habitability timeline** (years before the zone becomes agriculturally viable)
+- **ROI projections** at 25, 50, and 100 years
+- **Break-even** (years before revenues offset construction cost)
+- **Multi-canal comparison table** sorted by break-even
 
 ---
 
@@ -93,6 +127,7 @@ This tool is built around a principle of **honest uncertainty**:
 | Framework | React + TypeScript + Vite |
 | Styling | Tailwind CSS v4 |
 | State | Zustand |
+| Persistence | Dexie.js (IndexedDB) |
 | Elevation data | Open-Meteo Elevation API (Copernicus GLO-30, free, no auth) |
 | Routing | Dijkstra via ngraph.path in Web Worker |
 | Charts | recharts |
@@ -100,11 +135,11 @@ This tool is built around a principle of **honest uncertainty**:
 
 ---
 
-## Roadmap
+## Shipped Milestones
 
-**v1.0** (current) — Draw, route, calculate, analyze, dashboard  
-**v2.0** (in progress) — Local persistence, pre-computed optimal canal candidates, salt water ecological context, solar desalination nodes, long-term meteorological impact  
-**v3.0** (planned) — Full economic model (ROI, break-even), spirulina/aquaculture potential, multi-canal network modeling
+**v1.0** — Draw, route, calculate, ecological analysis, global dashboard  
+**v2.0** — Local persistence, pre-computed canal candidates, salt water context, solar desalination, meteorological impact  
+**v3.0** — Full circular economy engine, ROI & break-even, economic dashboard
 
 ---
 
