@@ -199,10 +199,13 @@ export function EconomicPanel() {
                     <div className="flex flex-col gap-1">
                       <dt className="text-[11px] text-gray-500 uppercase tracking-wider flex items-center gap-1">
                         <Wheat size={12} className="shrink-0" />
-                        Surface agricole créée
+                        Surface irrigable potentielle
                       </dt>
                       <dd className="text-[13px] font-semibold text-white">
                         {formatInterval(circularResult.arableLandKm2, 'km²', 1)}
+                      </dd>
+                      <dd className="text-[11px] text-gray-500 italic">
+                        Estimation heuristique — non valeur agronomique
                       </dd>
                     </div>
 

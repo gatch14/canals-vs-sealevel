@@ -52,8 +52,9 @@ export function calcEvaporation(
 
 /**
  * Calcule le rayon d'influence climatique [min, max] km.
- * Heuristique : [50, 150] km × aridityFactor × scale
+ * Heuristique : [5, 50] km × aridityFactor × scale
  * scale = min(1 + lengthKm/5000, 3.0)
+ * Littérature : plans d'eau linéaires influencent 5–50 km selon largeur/longueur.
  * UX-01 : intervalle [min, max].
  */
 export function calcInfluenceRadius(
@@ -62,8 +63,8 @@ export function calcInfluenceRadius(
 ): Interval {
   const scale = Math.min(1.0 + lengthKm / 5000, 3.0)
   return [
+    5 * aridityFactor * scale,
     50 * aridityFactor * scale,
-    150 * aridityFactor * scale,
   ]
 }
 
@@ -71,7 +72,8 @@ export function calcInfluenceRadius(
 
 /**
  * Calcule les précipitations supplémentaires induites [min, max] mm/an.
- * 20–40% de l'évaporation retombe sur la zone d'influence (aire km²).
+ * 3–20% de l'évaporation retombe localement (littérature : fraction recyclée
+ * en zones arides = 3–25%, AGU Water Resources Research 2016, PMC 2024).
  * Conversion : km³ × fraction × 1e6 / influenceAreaKm2 → mm/an
  * UX-01 : intervalle [min, max].
  */
@@ -82,8 +84,8 @@ export function calcInducedPrecipitation(
 ): Interval {
   if (evapKm3[0] === 0 && evapKm3[1] === 0) return [0, 0]
   if (influenceAreaKm2 <= 0) return [0, 0]
-  const pMin = 0.20 * (1 + aridityFactor)
-  const pMax = 0.40 * (1 + aridityFactor)
+  const pMin = 0.03
+  const pMax = 0.20
   return [
     (evapKm3[0] * pMin * 1e6) / influenceAreaKm2,
     (evapKm3[1] * pMax * 1e6) / influenceAreaKm2,

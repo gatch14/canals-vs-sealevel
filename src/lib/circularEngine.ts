@@ -9,9 +9,12 @@ import { calcAridityFactor } from './meteorologyEngine'
 
 // ─── Constantes scientifiques locked (CONTEXT.md) ────────────────────────────
 
-const SPIRULINE_YIELD_MIN = 10
-const SPIRULINE_YIELD_MAX = 20
+// Rendement commercial en bassin ouvert (raceway) zone tropicale/aride : 21–32 t/ha/an (ScienceDirect 2023)
+const SPIRULINE_YIELD_MIN = 15
+const SPIRULINE_YIELD_MAX = 30
 const SPIRULINE_BASIN_FRACTION = 0.10
+// Hypothèse de production de masse — prix de marché actuel : 70–280 €/kg ; ces valeurs supposent
+// une massification à grande échelle qui effondrerait les prix vers un niveau commodity.
 const SPIRULINE_PRICE_MIN = 5_000
 const SPIRULINE_PRICE_MAX = 20_000
 
@@ -22,12 +25,15 @@ const AQUACULTURE_PRICE_MIN = 2_000
 const AQUACULTURE_PRICE_MAX = 8_000
 
 const BRINE_SALT_CONCENTRATION = 35
-const MG_FRACTION = 0.0013
-const K_FRACTION  = 0.0004
-const CA_FRACTION = 0.0004
-const MG_PRICE = 200
-const K_PRICE  = 300
-const CA_PRICE = 100
+// Fractions par rapport à la masse de sel dissous (Lenntech Seawater Composition) :
+// Mg²⁺ = 1,262 g/L / 35 g/L TDS = 3,6% — K⁺ = 0,38/35 = 1,1% — Ca²⁺ = 0,40/35 = 1,1%
+const MG_FRACTION = 0.036
+const K_FRACTION  = 0.011
+const CA_FRACTION = 0.011
+// Prix sels solubles (MgSO₄/MgCl₂, KCl, CaCl₂) — non métal pur (USGS 2024)
+const MG_PRICE = 200   // MgSO₄ industriel : ~150–400 $/t
+const K_PRICE  = 300   // KCl (potasse) : ~300–383 $/t (USGS 2024)
+const CA_PRICE = 100   // CaCl₂ industriel : ~200–450 $/t (bas de fourchette)
 
 // NOTE: 2_000 m³/km²/an = heuristique d'impact (non agronomique)
 const ARABLE_WATER_REQ = 2_000
