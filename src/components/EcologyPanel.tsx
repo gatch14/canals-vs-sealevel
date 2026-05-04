@@ -228,7 +228,7 @@ export function EcologyPanel() {
                 <dl className="flex flex-col gap-1 mt-1">
                   <div className="flex flex-col gap-[2px]">
                     <dt className="text-[11px] text-gray-500 uppercase tracking-wider">
-                      N&oelig;uds ({desalinationResult.nodes})
+                      Eau douce produite ({desalinationResult.nodes} n&oelig;uds)
                     </dt>
                     <dd className="text-[13px] font-semibold text-white">
                       {formatInterval(desalinationResult.waterProduction, 'm³/jour', 0)}
