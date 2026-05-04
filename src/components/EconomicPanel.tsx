@@ -159,6 +159,9 @@ export function EconomicPanel() {
                       <dd className="text-[13px] font-semibold text-white">
                         {formatInterval(circularResult.spirulineValue, '€/an', 0)}
                       </dd>
+                      <dd className="text-[11px] text-gray-400">
+                        {formatInterval(circularResult.spirulineTonnes, 't/an', 1)}
+                      </dd>
                     </div>
 
                     <div className="flex flex-col gap-1">
@@ -169,6 +172,9 @@ export function EconomicPanel() {
                       <dd className="text-[13px] font-semibold text-white">
                         {formatInterval(circularResult.aquacultureValue, '€/an', 0)}
                       </dd>
+                      <dd className="text-[11px] text-gray-400">
+                        {formatInterval(circularResult.aquacultureTonnes, 't protéines/an', 1)}
+                      </dd>
                     </div>
 
                     <div className="flex flex-col gap-1">
@@ -178,6 +184,15 @@ export function EconomicPanel() {
                       </dt>
                       <dd className="text-[13px] font-semibold text-white">
                         {formatInterval(circularResult.mineralsValue, '€/an', 0)}
+                      </dd>
+                      <dd className="text-[11px] text-gray-400">
+                        Mg {formatInterval(circularResult.mgTonnes, 't/an', 1)}
+                      </dd>
+                      <dd className="text-[11px] text-gray-400">
+                        K {formatInterval(circularResult.kTonnes, 't/an', 1)}
+                      </dd>
+                      <dd className="text-[11px] text-gray-400">
+                        Ca {formatInterval(circularResult.caTonnes, 't/an', 1)}
                       </dd>
                     </div>
 
