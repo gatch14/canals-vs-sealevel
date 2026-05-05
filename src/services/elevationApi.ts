@@ -32,10 +32,12 @@ export async function fetchElevations(
   signal?: AbortSignal,
 ): Promise<number[]> {
   // INVERSION : coords = [lng, lat], Open-Meteo attend latitude et longitude séparés
-  const latitudes  = coords.map(([, lat]) => lat).join(',')
-  const longitudes = coords.map(([lng]) => lng).join(',')
-
-  const url = `https://api.open-meteo.com/v1/elevation?latitude=${latitudes}&longitude=${longitudes}`
+  // URLSearchParams encode les valeurs — protège contre l'injection de paramètres (CR-03)
+  const params = new URLSearchParams({
+    latitude:  coords.map(([, lat]) => lat).join(','),
+    longitude: coords.map(([lng]) => lng).join(','),
+  })
+  const url = `https://api.open-meteo.com/v1/elevation?${params}`
 
   const response = await fetch(url, { signal })
 
@@ -80,12 +82,13 @@ export function detectUphillSegments(points: ElevationPoint[]): UphillSegment[] 
   }
 
   // Fermer un segment éventuellement ouvert à la fin
+  // WR-07 : clamp à 0 — le segment peut redescendre partiellement en fin de profil
   if (segStart !== null && points.length > 0) {
     const last = points[points.length - 1]
     segments.push({
       distanceStart: segStart,
       distanceEnd: last.distance,
-      altitudeGain: last.altitude - (segStartAlt ?? 0),
+      altitudeGain: Math.max(0, last.altitude - (segStartAlt ?? 0)),
     })
   }
 

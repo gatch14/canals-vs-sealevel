@@ -20,9 +20,9 @@ describe('fetchElevations', () => {
 
     expect(mockFetch).toHaveBeenCalledOnce()
     const url: string = mockFetch.mock.calls[0][0]
-    // L'API reçoit latitude=48.8,43.3 et longitude=2.3,5.4 (lat/lng séparés)
-    expect(url).toContain('latitude=48.8,43.3')
-    expect(url).toContain('longitude=2.3,5.4')
+    // URLSearchParams encode les virgules en %2C — CR-03 (protection injection paramètres)
+    expect(url).toContain('latitude=48.8%2C43.3')
+    expect(url).toContain('longitude=2.3%2C5.4')
     expect(url).toContain('open-meteo.com/v1/elevation')
   })
 

@@ -49,10 +49,11 @@ export function buildGrid(start: [number, number], end: [number, number], N: num
   const dLng = (maxLng - minLng) * margin
   const dLat = (maxLat - minLat) * margin
 
-  const bboxMinLng = minLng - dLng
-  const bboxMaxLng = maxLng + dLng
-  const bboxMinLat = minLat - dLat
-  const bboxMaxLat = maxLat + dLat
+  // IN-04 : clamp pour éviter des coordonnées hors bornes géographiques valides
+  const bboxMinLng = Math.max(-180, minLng - dLng)
+  const bboxMaxLng = Math.min(180, maxLng + dLng)
+  const bboxMinLat = Math.max(-90, minLat - dLat)
+  const bboxMaxLat = Math.min(90, maxLat + dLat)
 
   const coords: [number, number][] = []
   for (let row = 0; row < N; row++) {
@@ -70,9 +71,12 @@ export function buildGrid(start: [number, number], end: [number, number], N: num
 
 async function fetchSingleBatch(coords: [number, number][], signal: AbortSignal): Promise<number[]> {
   // INVERSION obligatoire : coords = [lng, lat], Open-Meteo attend latitude et longitude séparés
-  const latitudes  = coords.map(([, lat]) => lat).join(',')
-  const longitudes = coords.map(([lng]) => lng).join(',')
-  const url = `https://api.open-meteo.com/v1/elevation?latitude=${latitudes}&longitude=${longitudes}`
+  // URLSearchParams encode les valeurs — protège contre l'injection de paramètres (CR-03)
+  const params = new URLSearchParams({
+    latitude:  coords.map(([, lat]) => lat).join(','),
+    longitude: coords.map(([lng]) => lng).join(','),
+  })
+  const url = `https://api.open-meteo.com/v1/elevation?${params}`
   const response = await fetch(url, { signal })
   if (!response.ok) throw new Error(`Open Meteo HTTP ${response.status}`)
   const data = await response.json()
