@@ -101,12 +101,12 @@ describe('calcCoolingDelta — refroidissement local °C (METEO-04)', () => {
     expect(result[0]).toBe(0)
     expect(result[1]).toBe(0)
   })
-  it('retourne deux valeurs négatives pour surface > 0 (refroidissement)', () => {
+  it('retourne deux magnitudes positives pour surface > 0 (CR-02 : convention positive)', () => {
     const result = calcCoolingDelta(100, 1.0)
-    expect(result[0]).toBeLessThan(0)
-    expect(result[1]).toBeLessThan(0)
+    expect(result[0]).toBeGreaterThan(0)
+    expect(result[1]).toBeGreaterThan(0)
   })
-  it('respecte la convention : [0] est plus négatif que [1] (refroidissement max < refroidissement min)', () => {
+  it('respecte la convention [min, max] : [0] < [1] (magnitude min < magnitude max)', () => {
     const result = calcCoolingDelta(100, 1.0)
     expect(result[0]).toBeLessThan(result[1])
   })
@@ -170,12 +170,12 @@ describe('computeMeteorologyAnalysis — orchestrateur (METEO-01 à METEO-05)', 
     expect(result!.influenceRadiusKm[0]).toBeGreaterThan(0)
   })
 
-  it('retourne coolingDeltaC[0] < 0 (valeur négative — METEO-04)', () => {
+  it('retourne coolingDeltaC[0] > 0 (magnitude positive — CR-02 convention)', () => {
     const result = computeMeteorologyAnalysis(
       { lengthKm: 1000, widthM: 50, points: [[5.0, 25.0], [9.0, 21.0]] },
       DESERT_FEATURES,
     )
-    expect(result!.coolingDeltaC[0]).toBeLessThan(0)
+    expect(result!.coolingDeltaC[0]).toBeGreaterThan(0)
   })
 
   it('retourne weatherRisk high pour canal désertique long > 1500 km (METEO-05)', () => {

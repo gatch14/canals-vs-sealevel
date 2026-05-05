@@ -96,9 +96,9 @@ export function calcInducedPrecipitation(
 
 /**
  * Calcule le refroidissement local par évapotranspiration [min, max] °C.
- * Convention : valeurs NÉGATIVES — [0] est le refroidissement maximum (plus négatif),
- *              [1] est le refroidissement minimum (moins négatif).
- * Formule : [-2.0 × aridityFactor × base, -0.5 × aridityFactor × base]
+ * Convention : magnitudes POSITIVES — le signe négatif (refroidissement) est porté
+ *              par l'affichage (préfixe "−"). Respecte l'hypothèse positive de mulIntervals.
+ * Formule : [0.5 × aridityFactor × base, 2.0 × aridityFactor × base]
  * base = min(surfaceKm2 / 1000, 1.0)
  * UX-01 : intervalle [min, max].
  */
@@ -109,8 +109,8 @@ export function calcCoolingDelta(
   if (surfaceKm2 === 0) return [0, 0]
   const base = Math.min(surfaceKm2 / 1000, 1.0)
   return [
-    -2.0 * aridityFactor * base,
-    -0.5 * aridityFactor * base,
+    0.5 * aridityFactor * base,
+    2.0 * aridityFactor * base,
   ]
 }
 

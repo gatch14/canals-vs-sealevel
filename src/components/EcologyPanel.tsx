@@ -9,22 +9,8 @@ import { useCanalStore } from '../store/canalStore'
 import { useEcology } from '../hooks/useEcology'
 import { useDesalination } from '../hooks/useDesalination'
 import { useMeteorology } from '../hooks/useMeteorology'
-import type { Interval } from '../types/calculation'
+import { formatInterval } from '../lib/formatters'
 import type { WeatherRisk } from '../types/meteorology'
-
-// ─── Helpers de formatage UX-01 ──────────────────────────────────────────────
-
-/** Format scientifique pour valeurs très petites (< 0.001) */
-function formatNumber(n: number, decimals: number = 3): string {
-  if (n === 0) return '0'
-  if (Math.abs(n) < 0.001) return n.toExponential(2)
-  return n.toFixed(decimals)
-}
-
-/** [X – Y] unité — em dash U+2013 obligatoire (UI-SPEC §Number Formatting) */
-function formatInterval(iv: Interval, unit: string, decimals: number = 3): string {
-  return `[${formatNumber(iv[0], decimals)} – ${formatNumber(iv[1], decimals)}] ${unit}`
-}
 
 // ─── Labels météo (METEO-05) ────────────────────────────────────────────────
 
@@ -300,10 +286,7 @@ export function EcologyPanel() {
                 <div className="flex flex-col gap-[2px]">
                   <dt className="text-[11px] text-gray-500 uppercase tracking-wider">Refroidissement local</dt>
                   <dd className="text-[13px] font-semibold text-white">
-                    &minus;{formatInterval(
-                      [Math.abs(meteorologyResult.coolingDeltaC[1]), Math.abs(meteorologyResult.coolingDeltaC[0])],
-                      '°C', 2,
-                    )}
+                    &minus;{formatInterval(meteorologyResult.coolingDeltaC, '°C', 2)}
                   </dd>
                 </div>
 
