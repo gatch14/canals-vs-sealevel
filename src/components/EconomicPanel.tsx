@@ -11,23 +11,11 @@ import { calcAllCanalsRoi } from '../lib/roiEngine'
 import desertZones from '../data/desertZones.geojson'
 import type { FeatureCollection } from 'geojson'
 import type { Interval } from '../types/calculation'
+import { formatInterval } from '../lib/formatters'
 
 // ─── Constante module-level (T-13-02 : useMemo sur dépendances stables) ─────
 
 const DESERT_FEATURES = desertZones as unknown as FeatureCollection
-
-// ─── Helpers de formatage UX-01 (copiés depuis DashboardPanel.tsx) ───────────
-
-function formatNumber(n: number, decimals: number = 3): string {
-  if (n === 0) return '0'
-  if (Math.abs(n) < 0.001) return n.toExponential(2)
-  return n.toFixed(decimals)
-}
-
-/** [X – Y] unité — em dash U+2013 obligatoire (UI-SPEC §Number Formatting) */
-function formatInterval(iv: Interval, unit: string, decimals: number = 3): string {
-  return `[${formatNumber(iv[0], decimals)} – ${formatNumber(iv[1], decimals)}] ${unit}`
-}
 
 /** Break-even : Infinity → "—" (tiret cadratin — UX honnête) */
 function formatBreakEven(iv: Interval): string {
@@ -52,7 +40,7 @@ export function EconomicPanel() {
   const [isOpen, setIsOpen] = useState(true)
   useEffect(() => {
     if (selectedCanalId && selectedCanal?.elevation) setIsOpen(true)
-  }, [selectedCanalId])
+  }, [selectedCanalId, selectedCanal?.elevation])
 
   // Sous-accordéon tableau comparatif — replié par défaut (UI-SPEC)
   const [isCompareOpen, setIsCompareOpen] = useState(false)

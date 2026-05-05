@@ -10,10 +10,9 @@ export function useEcology(): EcologyResult | null {
   const selectedCanalId = useCanalStore((s) => s.selectedCanalId)
   const canals = useCanalStore((s) => s.canals)
 
-  const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
-
   return useMemo<EcologyResult | null>(() => {
+    const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
     if (!selectedCanal) return null
     return computeEcologyAnalysis(selectedCanal)
-  }, [selectedCanal])
+  }, [selectedCanalId, canals])
 }

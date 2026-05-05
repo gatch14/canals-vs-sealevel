@@ -19,9 +19,8 @@ export function useCalculation(): CalculationHookResult {
   const canals          = useCanalStore((s) => s.canals)
   const calcParams      = useCanalStore((s) => s.calcParams)
 
-  const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
-
   const result = useMemo<CalculationResult | null>(() => {
+    const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
     if (!selectedCanal) return null
     return computeCalculation(
       selectedCanal,
@@ -29,14 +28,10 @@ export function useCalculation(): CalculationHookResult {
       calcParams.width,
       calcParams.depth,
     )
-  }, [
-    selectedCanal,
-    selectedCanal?.elevation,
-    calcParams.width,
-    calcParams.depth,
-  ])
+  }, [selectedCanalId, canals, calcParams.width, calcParams.depth])
 
   const partial = useMemo<PartialImpactResult | null>(() => {
+    const selectedCanal = canals.find((c) => c.id === selectedCanalId) ?? null
     if (!selectedCanal || !selectedCanal.elevation) return null
     return computePartialImpact(
       selectedCanal,
@@ -44,12 +39,7 @@ export function useCalculation(): CalculationHookResult {
       calcParams.width,
       calcParams.depth,
     )
-  }, [
-    selectedCanal,
-    selectedCanal?.elevation,
-    calcParams.width,
-    calcParams.depth,
-  ])
+  }, [selectedCanalId, canals, calcParams.width, calcParams.depth])
 
   return { result, partial }
 }
