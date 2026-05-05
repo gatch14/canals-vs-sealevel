@@ -13,5 +13,5 @@ export function useDashboard(): DashboardResult | null {
 
   return useMemo<DashboardResult | null>(() => {
     return computeDashboardResult(canals, calcParams)
-  }, [canals, calcParams.width, calcParams.depth])
+  }, [canals, calcParams])
 }

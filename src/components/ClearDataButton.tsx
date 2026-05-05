@@ -11,14 +11,21 @@ export function ClearDataButton() {
   const clearAll = useCanalStore((s) => s.clearAll)
 
   const handleConfirm = async () => {
-    // 1. Vider IndexedDB — transaction atomique (RESEARCH.md Pattern 4)
-    await db.transaction('rw', [db.canals, db.settings], async () => {
-      await db.canals.clear()
-      await db.settings.clear()
-    })
-    // 2. Reset du store mémoire — après IndexedDB pour cohérence
-    clearAll()
-    setShowConfirm(false)
+    try {
+      // 1. Vider IndexedDB — transaction atomique (RESEARCH.md Pattern 4)
+      await db.transaction('rw', [db.canals, db.settings], async () => {
+        await db.canals.clear()
+        await db.settings.clear()
+      })
+      // 2. Reset du store mémoire — après IndexedDB pour cohérence
+      clearAll()
+    } catch (err) {
+      console.error('[ClearDataButton] IndexedDB clear failed:', err)
+      // Reset store quand même — l'utilisateur repart de zéro même si IDB n'a pas pu être vidée
+      clearAll()
+    } finally {
+      setShowConfirm(false)
+    }
   }
 
   return (

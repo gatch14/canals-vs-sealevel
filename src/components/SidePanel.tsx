@@ -22,7 +22,7 @@ export function SidePanel() {
   useRoutingWorker()
   // Hydrate le store depuis IndexedDB au montage + sync Zustand→Dexie — Phase 7
   usePersistence()
-const routingState = useCanalStore((s) => s.routingState)
+  const routingState = useCanalStore((s) => s.routingState)
   const cancelRouting = useCanalStore((s) => s.cancelRouting)
 
   return (

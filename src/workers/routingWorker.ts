@@ -6,9 +6,12 @@ import { buildGrid, getResolution, fetchGridElevations, buildGraph, findPath } f
 import type { RoutingRequest, RoutingResult } from '../types/routing'
 
 self.onmessage = async (e: MessageEvent<RoutingRequest>) => {
-  const { start, end, resolution } = e.data
+  const { start, end } = e.data
 
   try {
+    // IN-05 : résolution calculée ici via getResolution — autorité unique (routingGrid.ts)
+    const resolution = getResolution(start, end)  // retourne 50 | 100
+
     // 1. Construire la grille adaptative
     const coords = buildGrid(start, end, resolution)
 
