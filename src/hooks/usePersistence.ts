@@ -6,7 +6,7 @@
 import { useEffect } from 'react'
 import { useCanalStore } from '../store/canalStore'
 import { db } from '../services/db'
-import type { CalcParams } from '../types/calculation'
+import { DEFAULT_CALC_PARAMS } from '../types/calculation'
 import type { StoredCanal } from '../types/canal'
 
 /**
@@ -20,34 +20,11 @@ export function usePersistence() {
   useEffect(() => {
     let cancelled = false
 
-    // ── 1. Hydration au montage ──────────────────────────────────────────────
-    const hydrate = async () => {
-      try {
-        const [storedCanals, settings] = await Promise.all([
-          db.canals.toArray(),
-          db.settings.get('calcParams'),
-        ])
-        if (cancelled) return
-        const store = useCanalStore.getState()
-        if (storedCanals.length > 0) {
-          // StoredCanal est compatible avec Canal (elevation* sont optionnels dans Canal)
-          store.hydrateCanals(storedCanals)
-        }
-        if (settings?.value) {
-          store.setCalcParams(settings.value as Partial<CalcParams>)
-        }
-      } catch (err) {
-        // Graceful fallback : navigation privée Firefox, quota dépassé, etc.
-        // RESEARCH.md Pitfall 3
-        console.warn('[persistence] Hydration failed, starting fresh:', err)
-      }
-    }
-
-    hydrate()
-
     // ── 2. Subscribe Zustand → sync Dexie à chaque mutation ─────────────────
     // Pattern subscribe basique avec comparaison de références (RESEARCH.md Pattern 2)
     // Évite subscribeWithSelector qui modifie la signature TypeScript du store.
+    // Déclaré AVANT hydrate() pour que la closure de hydrate puisse mettre à jour
+    // prevCanals après hydrateCanals() — évite l'aller-retour DB inutile (WR-01).
     let prevCanals = useCanalStore.getState().canals
     let prevCalcParams = useCanalStore.getState().calcParams
 
@@ -87,6 +64,47 @@ export function usePersistence() {
         console.warn('[persistence] Sync failed:', err)
       }
     })
+
+    // ── 1. Hydration au montage ──────────────────────────────────────────────
+    const hydrate = async () => {
+      try {
+        const [storedCanals, settings] = await Promise.all([
+          db.canals.toArray(),
+          db.settings.get('calcParams'),
+        ])
+        if (cancelled) return
+        const store = useCanalStore.getState()
+        if (storedCanals.length > 0) {
+          // CR-04 : filtrer les canaux avec coordonnées invalides avant hydration
+          const validCanals = storedCanals.filter(
+            (c) => Array.isArray(c.points) && c.points.length >= 2 &&
+                   c.points.every(([lng, lat]) =>
+                     typeof lng === 'number' && typeof lat === 'number' &&
+                     lng >= -180 && lng <= 180 && lat >= -90 && lat <= 90
+                   )
+          ) as StoredCanal[]
+          store.hydrateCanals(validCanals)
+          // WR-01 : sync prevCanals après hydration pour éviter l'aller-retour DB inutile
+          prevCanals = useCanalStore.getState().canals
+        }
+        // CR-04 : valider calcParams avant injection dans le store
+        const raw = settings?.value
+        if (raw && typeof raw === 'object' && !Array.isArray(raw)) {
+          const p = raw as Record<string, unknown>
+          const width = typeof p.width === 'number' && Number.isFinite(p.width) && p.width > 0
+            ? p.width : DEFAULT_CALC_PARAMS.width
+          const depth = typeof p.depth === 'number' && Number.isFinite(p.depth) && p.depth > 0
+            ? p.depth : DEFAULT_CALC_PARAMS.depth
+          store.setCalcParams({ width, depth })
+        }
+      } catch (err) {
+        // Graceful fallback : navigation privée Firefox, quota dépassé, etc.
+        // RESEARCH.md Pitfall 3
+        console.warn('[persistence] Hydration failed, starting fresh:', err)
+      }
+    }
+
+    hydrate()
 
     return () => {
       cancelled = true
