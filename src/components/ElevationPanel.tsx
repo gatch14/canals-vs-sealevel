@@ -74,7 +74,7 @@ export function ElevationPanel() {
                 Données d&apos;élévation indisponibles
               </p>
               <p className="text-xs text-gray-400 mt-1 leading-relaxed">
-                Open Topo Data inaccessible. Vérifiez votre connexion et cliquez sur le canal pour réessayer.
+                Open-Meteo inaccessible. Vérifiez votre connexion et cliquez sur le canal pour réessayer.
               </p>
             </div>
           )}

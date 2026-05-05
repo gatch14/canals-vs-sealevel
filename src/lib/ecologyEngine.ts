@@ -76,7 +76,8 @@ export function computeDesertLengthKm(
       const slice = lineSlice(singleIntersect, endPt, canal)
       return length(slice, { units: 'kilometers' })
     }
-  } catch {
+  } catch (e) {
+    console.warn('[ecologyEngine] lineSlice failed (1-intersection case):', e)
     return 0
   }
 }

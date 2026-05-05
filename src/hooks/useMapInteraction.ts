@@ -56,6 +56,12 @@ export function useMapInteraction(map: maplibregl.Map | null) {
       }
     }
 
+    // ── Mode ROUTING ──────────────────────────────────────────────────────────
+    // Les handlers routing sont gérés dans MapView.tsx (clicks start/end).
+    // Ce hook ne les enregistre pas — pas de cleanup nécessaire ici.
+    // Si des handlers routing sont ajoutés ici à l'avenir, penser à les nettoyer.
+    if (mode === 'routing') return
+
     // ── Mode SÉLECTION ────────────────────────────────────────────────────────
     if (mode === 'selection') {
       const handleMouseEnter = () => {
