@@ -3,6 +3,7 @@
 // Dépend uniquement de selectedCanalId — canals lu via getState() pour éviter
 // que setElevationLoading() déclenche un cleanup qui annule le fetch en cours
 import { useEffect } from 'react'
+import { length, lineString } from '@turf/turf'
 import { useCanalStore } from '../store/canalStore'
 import { samplePoints, fetchElevations, buildProfile } from '../services/elevationApi'
 
@@ -19,6 +20,13 @@ export function useElevation() {
     if (!canal) return
     if (canal.elevation) return        // Cache mémoire — pas de re-fetch
     if (canal.elevationLoading) return // Déjà en cours (reprise après erreur réseau)
+
+    // CR-05 : canal de longueur nulle → erreur explicite, pas de fetch
+    const totalKm = length(lineString(canal.points), { units: 'kilometers' })
+    if (totalKm < 0.001) {
+      setElevationError(selectedCanalId, 'Canal trop court pour calculer le profil (< 1 m)')
+      return
+    }
 
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 10_000)

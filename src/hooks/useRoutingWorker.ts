@@ -24,6 +24,13 @@ export function useRoutingWorker() {
       (e[0] - s[0]) * 111 * Math.cos(s[1] * Math.PI / 180),
       (e[1] - s[1]) * 111,
     )
+
+    // CR-06 : guard start ≈ end — évite grille dégénérée + DOS auto-infligé sur l'API
+    if (distKm < 0.1) {
+      useCanalStore.getState().setRoutingState('error')
+      return
+    }
+
     const resolution: 10 | 15 = distKm <= 100 ? 10 : 15
 
     // PATTERN OBLIGATOIRE — new URL() littéral statique (Pitfall 3 RESEARCH.md)
