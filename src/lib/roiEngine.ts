@@ -72,7 +72,7 @@ export function calcBreakEven(
   totalCostMEur: Interval,
   annualValueMEur: Interval,
 ): Interval {
-  if (annualValueMEur[0] <= 0) return [Infinity, Infinity]
+  if (annualValueMEur[0] <= 0 || annualValueMEur[1] <= 0) return [Infinity, Infinity]
   return [
     totalCostMEur[0] / annualValueMEur[1],  // optimiste : coûtMin / annualMax
     totalCostMEur[1] / annualValueMEur[0],  // pessimiste : coûtMax / annualMin
