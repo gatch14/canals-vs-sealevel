@@ -5,20 +5,8 @@ import { ChevronDown, AlertCircle } from 'lucide-react'
 import { useCanalStore } from '../store/canalStore'
 import { useDashboard } from '../hooks/useDashboard'
 import { IpccComparisonChart } from './IpccComparisonChart'
+import { formatInterval } from '../lib/formatters'
 import type { Interval } from '../types/calculation'
-
-// ─── Helpers de formatage UX-01 (copiés depuis CalculationPanel.tsx) ──────────
-
-function formatNumber(n: number, decimals: number = 3): string {
-  if (n === 0) return '0'
-  if (Math.abs(n) < 0.001) return n.toExponential(2)
-  return n.toFixed(decimals)
-}
-
-/** [X – Y] unité — em dash U+2013 obligatoire */
-function formatInterval(iv: Interval, unit: string, decimals: number = 3): string {
-  return `[${formatNumber(iv[0], decimals)} – ${formatNumber(iv[1], decimals)}] ${unit}`
-}
 
 // ─── Composant ────────────────────────────────────────────────────────────────
 

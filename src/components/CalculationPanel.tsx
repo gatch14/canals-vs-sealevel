@@ -5,21 +5,8 @@ import { useState, useEffect } from 'react'
 import { ChevronDown, AlertCircle } from 'lucide-react'
 import { useCanalStore } from '../store/canalStore'
 import { useCalculation } from '../hooks/useCalculation'
+import { formatNumber, formatInterval } from '../lib/formatters'
 import type { Interval, TerrainBreakdown } from '../types/calculation'
-
-// ─── Helpers de formatage UX-01 ──────────────────────────────────────────────
-
-/** Format scientifique pour valeurs très petites (< 0.001) */
-function formatNumber(n: number, decimals: number = 3): string {
-  if (n === 0) return '0'
-  if (Math.abs(n) < 0.001) return n.toExponential(2)
-  return n.toFixed(decimals)
-}
-
-/** [X – Y] unité — em dash U+2013 obligatoire (UI-SPEC §Number Formatting) */
-function formatInterval(iv: Interval, unit: string, decimals: number = 3): string {
-  return `[${formatNumber(iv[0], decimals)} – ${formatNumber(iv[1], decimals)}] ${unit}`
-}
 
 /** Coût avec basculement M€ / Md€ (Pitfall 6 RESEARCH.md) */
 function formatCost(iv: Interval): string {
